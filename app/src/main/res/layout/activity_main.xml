@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/current_tab_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationY="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/main_header"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            android:text="Softtrack Здоровье"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="25dp"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:outlineProvider="none"
+            android:text="⫶"
+            android:textColor="#000000"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
+        android:translationY="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/current_tab_body"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/main_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Главная" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/together_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="together" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fitness_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Фитнес" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/my_page_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Моя страница" />
+    </com.google.android.material.tabs.TabLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
