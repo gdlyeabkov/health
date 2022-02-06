@@ -1,7 +1,10 @@
 package softtrack.product.health;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +38,9 @@ public class MainPageFragment extends Fragment {
     public void onStart() {
         super.onStart();
         initialize();
+
+        getWalkData();
+
     }
 
     public void initialize() {
@@ -136,6 +142,11 @@ public class MainPageFragment extends Fragment {
                 parentActivity.startActivity(intent);
             }
         });
+    }
+
+    public void getWalkData() {
+        SensorManager sensorManager = (SensorManager) parentActivity.getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
     }
 
 }
