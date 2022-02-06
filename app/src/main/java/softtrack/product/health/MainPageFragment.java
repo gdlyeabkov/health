@@ -1,11 +1,13 @@
 package softtrack.product.health;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -76,6 +78,62 @@ public class MainPageFragment extends Fragment {
                 glassesCount += 1;
                 String updatedRawGlassesCount = String.valueOf(glassesCount);
                 mainPageWaterBlockDrinkGlasses.setText(updatedRawGlassesCount);
+            }
+        });
+        LinearLayout mainPageActiveBlock = parentActivity.findViewById(R.id.main_page_active_block);
+        mainPageActiveBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, ActiveActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        LinearLayout mainPageWalkBlock = parentActivity.findViewById(R.id.main_page_walk_block);
+        mainPageWalkBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, WalkActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        LinearLayout mainPageExerciseBlock = parentActivity.findViewById(R.id.main_page_exercise_block);
+        mainPageExerciseBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, ExerciseActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        LinearLayout mainPageFoodBlock = parentActivity.findViewById(R.id.main_page_food_block);
+        mainPageFoodBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, FoodActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        LinearLayout mainPageSleepBlock = parentActivity.findViewById(R.id.main_page_sleep_block);
+        mainPageSleepBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, SleepActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        LinearLayout mainPageBodyCompositionBlock = parentActivity.findViewById(R.id.main_page_body_composition_block);
+        mainPageBodyCompositionBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, BodyActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        LinearLayout mainPageWaterBlock = parentActivity.findViewById(R.id.main_page_water_block);
+        mainPageWaterBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, WaterActivity.class);
+                parentActivity.startActivity(intent);
             }
         });
     }

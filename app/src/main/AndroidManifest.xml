@@ -18,6 +18,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ActiveActivity"
+        />
+        <activity
+            android:name=".WalkActivity"
+        />
+        <activity
+            android:name=".ExerciseActivity"
+        />
+        <activity
+            android:name=".FoodActivity"
+        />
+        <activity
+            android:name=".SleepActivity"
+        />
+        <activity
+            android:name=".BodyActivity"
+        />
+        <activity
+            android:name=".WaterActivity"
+        />
     </application>
 
 </manifest>

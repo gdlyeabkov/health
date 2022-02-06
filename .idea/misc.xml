@@ -3,11 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_fitness.xml" value="0.536" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_active.xml" value="0.12291666666666666" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_body.xml" value="0.12318840579710146" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_exercise.xml" value="0.12291666666666666" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_fitness.xml" value="0.47058823529411764" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food.xml" value="0.12318840579710146" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main_page.xml" value="0.5" />
-        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_my_page.xml" value="0.4" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_my_page.xml" value="0.39258114374034003" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_sleep.xml" value="0.12291666666666666" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_together.xml" value="0.14583333333333334" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_walk.xml" value="0.12291666666666666" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_water.xml" value="0.12291666666666666" />
       </map>
     </option>
   </component>

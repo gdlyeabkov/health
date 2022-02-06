@@ -22,4 +22,14 @@ public class FitnessFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initialize();
+    }
+
+    public void initialize() {
+
+    }
+
 }
