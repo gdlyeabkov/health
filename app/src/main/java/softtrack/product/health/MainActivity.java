@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,19 +27,22 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> tabsHeaders;
     public TextView mainHeaderLabel;
     public Button mainHeaderBtn;
+    @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initialize();
+    }
 
+    public void initialize() {
         mainTabs = findViewById(R.id.main_tabs);
         currentTabBody = findViewById(R.id.current_tab_body);
         mainHeaderLabel = findViewById(R.id.main_header_label);
         mainHeaderBtn = findViewById(R.id.main_header_btn);
-
         initializeTabs();
-
+        initDB();
     }
 
     public void initializeTabs() {
@@ -123,6 +131,21 @@ public class MainActivity extends AppCompatActivity {
         tabsHeaders.add("Together");
         tabsHeaders.add("Фитнес");
         tabsHeaders.add("Моя стр.");
+    }
+
+    @SuppressLint("WrongConstant")
+    public void initDB() {
+        db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS indicators (_id INTEGER PRIMARY KEY AUTOINCREMENT, water INTEGER, walk INTEGER, food INTEGER);");
+        Cursor indicatorsCursor = db.rawQuery("Select * from indicators", null);
+        long countIndicators = DatabaseUtils.queryNumEntries(db, "indicators");
+        boolean isPreInstall = countIndicators <= 0;
+        if (isPreInstall) {
+            db.execSQL("INSERT INTO \"indicators\"(water, walk, food) VALUES (" + 0 + ", " + 0 + ", " + 0 + ");");
+        }
+        db.execSQL("CREATE TABLE IF NOT EXISTS body_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, marks TEXT, musculature INTEGER, fat INTEGER, weight INTEGER);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS sleep_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, hours TEXT, minutes TEXT, date TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS food_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT);");
     }
 
 }

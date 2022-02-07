@@ -2,22 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/water_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/water_activity_header"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/water_activity_header_aside"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/button13"
+                android:id="@+id/water_activity_header_aside_back_btn"
                 android:layout_width="15dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -28,7 +31,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
-                android:id="@+id/textView55"
+                android:id="@+id/water_activity_header_aside_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -38,13 +41,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/water_activity_header_article"
             android:layout_width="175dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="75dp"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/button16"
+                android:id="@+id/water_activity_header_article_share_btn"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
@@ -56,7 +60,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/button14"
+                android:id="@+id/water_activity_header_article_chart_btn"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -67,7 +71,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/button15"
+                android:id="@+id/water_activity_header_article_aux_btn"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
@@ -81,26 +85,31 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/water_activity_body_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
+            android:id="@+id/water_activity_body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <HorizontalScrollView
+                android:id="@+id/water_activity_body_calendar_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 tools:ignore="SpeakableTextPresentCheck">
 
                 <LinearLayout
+                    android:id="@+id/water_activity_body_calendar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/water_activity_body_calendar_first_date"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -160,11 +169,11 @@
                             android:backgroundTint="#00FFFFFF"
                             android:outlineProvider="none"
                             android:text="1"
-                            android:textColor="#000000"
-                        />
+                            android:textColor="#000000" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/water_activity_body_calendar_second_date"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
@@ -231,6 +240,7 @@
             </HorizontalScrollView>
 
             <LinearLayout
+                android:id="@+id/water_activity_day_details"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -252,12 +262,13 @@
                     app:srcCompat="@drawable/glass_calculator" />
 
                 <LinearLayout
+                    android:id="@+id/water_activity_day_details_control"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/textView59"
+                        android:id="@+id/water_activity_day_details_control_increase_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="65dp"
@@ -266,42 +277,54 @@
                         android:backgroundTint="#00FFFFFF"
                         android:outlineProvider="none"
                         android:text="+"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/textView60"
+                        android:id="@+id/water_activity_day_details_control_glasses_count_label"
                         android:layout_width="75dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="5"
+                        android:text="0"
                         android:textAlignment="center"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/textView61"
+                        android:id="@+id/water_activity_day_details_control_decrease_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
                         android:layout_marginRight="65dp"
                         android:layout_weight="1"
                         android:backgroundTint="#00FFFFFF"
+                        android:enabled="false"
                         android:outlineProvider="none"
                         android:text="-"
-                        android:textColor="#000000" />
+                        android:textColor="#969696"
+                        android:textSize="24sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView57"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="стак." />
+                    android:text="стак."
+                    android:textAlignment="center" />
 
                 <TextView
-                    android:id="@+id/textView58"
+                    android:id="@+id/count_drinked_ml_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="(1250 мл)" />
+                    android:text="(0 мл)"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/detect_water_capacity_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Отслеживайте объем потребляемой воды"
+                    android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

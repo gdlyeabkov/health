@@ -1,7 +1,11 @@
 package softtrack.product.health;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -16,12 +20,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+
+import java.util.HashMap;
 
 import javax.security.auth.callback.Callback;
 
@@ -33,6 +40,13 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public SensorManager sensorManager;
     public TextView mainPageWalkBlockDataAsideValue = null;
     boolean walkPhase = false;
+    @SuppressLint("WrongConstant") public SQLiteDatabase db;
+    public HashMap indicators;
+    public TextView mainPageFoodBlockCurrentValue;
+    public ProgressBar mainPageWalkBlockDataAritcleProgress;
+    public TextView mainPageWalkBlockDataAritcleProgressLabel;
+    public int maxPercents = 100;
+    public int goodWalkIndicatorValue = 6000;
 
     public MainPageFragment() {
 
@@ -52,10 +66,14 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         initialize();
     }
 
+    @SuppressLint("WrongConstant")
     public void initialize() {
         parentActivity = (MainActivity) this.getActivity();
+        db = parentActivity.openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         waterControlBtnDisabledColor = Color.rgb(150, 150, 150);
         waterControlBtnEnabledColor = Color.rgb(0, 0, 0);
+        mainPageWalkBlockDataAritcleProgress = parentActivity.findViewById(R.id.main_page_walk_block_data_aritcle_progress);
+        mainPageWalkBlockDataAritcleProgressLabel = parentActivity.findViewById(R.id.main_page_walk_block_data_aritcle_progress_label);
         TextView mainPageWaterBlockDrinkGlasses = parentActivity.findViewById(R.id.main_page_water_block_drink_glasses);
         Button mainPageWaterBlockDrinkGlassesDecreaseBtn = parentActivity.findViewById(R.id.main_page_water_block_drink_glasses_decrease_btn);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +171,27 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         });
         mainPageWalkBlockDataAsideValue = parentActivity.findViewById(R.id.main_page_walk_block_data_aside_value);
         sensorManager = (SensorManager) parentActivity.getSystemService(Context.SENSOR_SERVICE);
+        indicators = new HashMap<String, Object>();
+        mainPageFoodBlockCurrentValue = parentActivity.findViewById(R.id.main_page_food_block_current_value);
+        Cursor indicatorsCursor = db.rawQuery("Select * from indicators", null);
+        indicatorsCursor.moveToFirst();
+        int water = indicatorsCursor.getInt(1);
+        int walk = indicatorsCursor.getInt(2);
+        int food = indicatorsCursor.getInt(3);
+        indicators.put("water", water);
+        indicators.put("walk", walk);
+        indicators.put("food", food);
+        String rawWalk = String.valueOf(walk);
+        mainPageWalkBlockDataAsideValue.setText(rawWalk);
+        int walkProgress = walk / (goodWalkIndicatorValue / maxPercents);
+        mainPageWalkBlockDataAritcleProgress.setProgress(walkProgress);
+        String rawWalkProgress = String.valueOf(walkProgress);
+        String rawWalkProgressMsg = rawWalkProgress + "%";
+        mainPageWalkBlockDataAritcleProgressLabel.setText(rawWalkProgressMsg);
+        String rawFood = String.valueOf(food);
+        mainPageFoodBlockCurrentValue.setText(rawFood);
+        String rawWater = String.valueOf(water);
+        mainPageWaterBlockDrinkGlasses.setText(rawWater);
     }
 
     @Override
@@ -207,11 +246,18 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             String currentWalkData = rawCurrentWalkData.toString();
             int parsedCurrentWalkData = Integer.parseInt(currentWalkData);
             parsedCurrentWalkData += 1;
-            boolean isCanAddWalk = parsedCurrentWalkData < 6000;
+            boolean isCanAddWalk = parsedCurrentWalkData < goodWalkIndicatorValue;
             if (isCanAddWalk) {
                 String rawWalkData = String.valueOf(parsedCurrentWalkData);
                 mainPageWalkBlockDataAsideValue.setText(rawWalkData);
-                // Log.d("debug", "смещение: " + rawWalkData);
+                int walkProgress = parsedCurrentWalkData / (goodWalkIndicatorValue / maxPercents);
+                mainPageWalkBlockDataAritcleProgress.setProgress(walkProgress);
+                String rawWalkProgress = String.valueOf(walkProgress);
+                String rawWalkProgressMsg = rawWalkProgress + "%";
+                mainPageWalkBlockDataAritcleProgressLabel.setText(rawWalkProgressMsg);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("walk", parsedCurrentWalkData);
+                db.update("indicators", contentValues, "_id = 1", new String[] {  });
             }
         }
     }
