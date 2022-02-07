@@ -16,14 +16,16 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/button13"
-                android:layout_height="wrap_content"
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:outlineProvider="none"
-                android:text="<"
-                android:textColor="#000000" />
+                android:scaleType="fitXY"
+                android:src="@drawable/back_arrow_logo"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/textView55"
@@ -158,7 +160,8 @@
                             android:backgroundTint="#00FFFFFF"
                             android:outlineProvider="none"
                             android:text="1"
-                            android:textColor="#000000" />
+                            android:textColor="#000000"
+                        />
                     </LinearLayout>
 
                     <LinearLayout

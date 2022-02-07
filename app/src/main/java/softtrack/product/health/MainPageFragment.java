@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +20,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-public class MainPageFragment extends Fragment {
+import javax.security.auth.callback.Callback;
+
+public class MainPageFragment extends Fragment implements SensorEventListener {
 
     public MainActivity parentActivity;
-    int waterControlBtnEnabledColor;
-    int waterControlBtnDisabledColor;
+    public int waterControlBtnEnabledColor;
+    public int waterControlBtnDisabledColor;
+    public SensorManager sensorManager;
+    public TextView mainPageWalkBlockDataAsideValue = null;
+    boolean walkPhase = false;
 
     public MainPageFragment() {
 
@@ -34,13 +45,11 @@ public class MainPageFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onStart() {
         super.onStart();
         initialize();
-
-        getWalkData();
-
     }
 
     public void initialize() {
@@ -142,11 +151,70 @@ public class MainPageFragment extends Fragment {
                 parentActivity.startActivity(intent);
             }
         });
+        mainPageWalkBlockDataAsideValue = parentActivity.findViewById(R.id.main_page_walk_block_data_aside_value);
+        sensorManager = (SensorManager) parentActivity.getSystemService(Context.SENSOR_SERVICE);
     }
 
-    public void getWalkData() {
-        SensorManager sensorManager = (SensorManager) parentActivity.getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        float[] offsets = sensorEvent.values;
+        float verticalOffset = offsets[1];
+        boolean isNotWalkPhase = !walkPhase;
+        boolean isVerticalOffsetLess = verticalOffset < 4;
+        boolean isFirstWalkPhase = isNotWalkPhase && isVerticalOffsetLess;
+        boolean isWalkPhase = walkPhase;
+        boolean isVerticalOffsetGreather = verticalOffset > 4;
+        boolean isSecondWalkPhase = isWalkPhase && isVerticalOffsetGreather;
+        if (isFirstWalkPhase) {
+            walkPhase = true;
+        } else if (isSecondWalkPhase) {
+            walkPhase = false;
+            detectWalk("sensorName", 0);
+        }
     }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+        // проще сделать это в onSensorChanged
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        boolean isAccelerometerExists = accelerometer != null;
+        if (isAccelerometerExists) {
+            sensorManager.registerListener(this, accelerometer,
+                    SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    public void detectWalk(String sensorName, int offset) {
+        // Log.d("debug", "Сенсор по имени " + sensorName + " сейчас в значении " + String.valueOf(offset));
+        boolean isDetectOffset = offset <= 3;
+        boolean isMock = true;
+        boolean isDetectedWalk = isDetectOffset || isMock;
+        boolean isMainPageWalkBlockDataAsideValueExists = mainPageWalkBlockDataAsideValue != null;
+        boolean isAddWalk = isDetectedWalk && isMainPageWalkBlockDataAsideValueExists;
+        if (isAddWalk) {
+            CharSequence rawCurrentWalkData = mainPageWalkBlockDataAsideValue.getText();
+            String currentWalkData = rawCurrentWalkData.toString();
+            int parsedCurrentWalkData = Integer.parseInt(currentWalkData);
+            parsedCurrentWalkData += 1;
+            boolean isCanAddWalk = parsedCurrentWalkData < 6000;
+            if (isCanAddWalk) {
+                String rawWalkData = String.valueOf(parsedCurrentWalkData);
+                mainPageWalkBlockDataAsideValue.setText(rawWalkData);
+                // Log.d("debug", "смещение: " + rawWalkData);
+            }
+        }
+    }
+
 
 }
