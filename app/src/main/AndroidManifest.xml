@@ -39,6 +39,9 @@
         <activity
             android:name=".WaterActivity"
         />
+        <activity
+            android:name=".RecordWeightDataActivity"
+        />
     </application>
 
 </manifest>

@@ -47,6 +47,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public TextView mainPageWalkBlockDataAritcleProgressLabel;
     public int maxPercents = 100;
     public int goodWalkIndicatorValue = 6000;
+    public Button mainPageBodyCompositionBlockWrapBodyAddBtn;
 
     public MainPageFragment() {
 
@@ -76,6 +77,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageWalkBlockDataAritcleProgressLabel = parentActivity.findViewById(R.id.main_page_walk_block_data_aritcle_progress_label);
         TextView mainPageWaterBlockDrinkGlasses = parentActivity.findViewById(R.id.main_page_water_block_drink_glasses);
         Button mainPageWaterBlockDrinkGlassesDecreaseBtn = parentActivity.findViewById(R.id.main_page_water_block_drink_glasses_decrease_btn);
+        mainPageBodyCompositionBlockWrapBodyAddBtn = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_body_add_btn);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,6 +194,14 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageFoodBlockCurrentValue.setText(rawFood);
         String rawWater = String.valueOf(water);
         mainPageWaterBlockDrinkGlasses.setText(rawWater);
+        mainPageBodyCompositionBlockWrapBodyAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // здесь
+                Intent intent = new Intent(parentActivity, RecordWeightDataActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
     }
 
     @Override
