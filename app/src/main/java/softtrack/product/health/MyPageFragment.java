@@ -1,6 +1,9 @@
 package softtrack.product.health;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import androidx.fragment.app.Fragment;
 public class MyPageFragment extends Fragment {
 
     public MainActivity parentActivity;
+    public TextView myPageActivityBodyHeaderLabel;
 
     public MyPageFragment () {
 
@@ -34,6 +38,15 @@ public class MyPageFragment extends Fragment {
 
     public void initialize() {
         parentActivity = (MainActivity) this.getActivity();
+        myPageActivityBodyHeaderLabel = parentActivity.findViewById(R.id.my_page_activity_body_header_label);
+        AccountManager accountManager = AccountManager.get(parentActivity.getApplicationContext());
+        Account[] accounts = accountManager.getAccounts();
+        boolean isAccountsDetected = accounts.length >= 1;
+        if (isAccountsDetected) {
+            Account myAccount = accounts[0];
+            String myAccountName = myAccount.name;
+            myPageActivityBodyHeaderLabel.setText(myAccountName);
+        }
     }
 
 }

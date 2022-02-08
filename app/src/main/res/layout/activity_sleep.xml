@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sleep_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/sleep_activity_header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
@@ -17,7 +19,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/sleep_activity_back_btn"
                 android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -64,26 +66,30 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/sleep_activity_body_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/sleep_activity_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/sleep_activity_body_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:orientation="vertical"></LinearLayout>
 
             <LinearLayout
+                android:id="@+id/sleep_activity_body_details"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/sleep_activity_body_details_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
@@ -91,7 +97,7 @@
                     android:text="Сегодня" />
 
                 <TextView
-                    android:id="@+id/textView55"
+                    android:id="@+id/sleep_activity_body_details_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Часов: --, минут: --."
@@ -100,13 +106,13 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/imageView20"
+                    android:id="@+id/sleep_activity_body_details_icon"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     app:srcCompat="@drawable/time_logo" />
 
                 <TextView
-                    android:id="@+id/textView58"
+                    android:id="@+id/sleep_activity_body_details_footer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Создавайте записи о сне, чтобы установить\nзакономерность и высыпаться лучше."
@@ -114,7 +120,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button13"
+                android:id="@+id/sleep_activity_body_add_record_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="75dp"
