@@ -61,6 +61,7 @@ public class FoodItemsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FoodItemsActivity.this, FoodActivity.class);
+                intent.putExtra("isAddRecord", false);
                 FoodItemsActivity.this.startActivity(intent);
             }
         });
@@ -86,8 +87,40 @@ public class FoodItemsActivity extends AppCompatActivity {
             HashMap<String, Object> food = new HashMap<String, Object>();
             String foodName = foodsCursor.getString(1);
             int foodCallories = foodsCursor.getInt(2);
+            int foodTotalCarbs = foodsCursor.getInt(3);
+            int foodProtein = foodsCursor.getInt(4);
+            int foodSaturatedFats = foodsCursor.getInt(5);
+            int foodTransFats = foodsCursor.getInt(6);
+            int foodCholesterol = foodsCursor.getInt(7);
+            int foodSodium = foodsCursor.getInt(8);
+            int foodPotassium = foodsCursor.getInt(9);
+            int foodCellulose = foodsCursor.getInt(10);
+            int foodSugar = foodsCursor.getInt(11);
+            int foodA = foodsCursor.getInt(12);
+            int foodC = foodsCursor.getInt(13);
+            int foodCalcium = foodsCursor.getInt(14);
+            int foodIron = foodsCursor.getInt(15);
+            double foodPortions = foodsCursor.getDouble(0);
+            int foodId = foodsCursor.getInt(0);
+            String typeOfFood = foodsCursor.getString(17);
             food.put("name", foodName);
             food.put("callories", foodCallories);
+            food.put("total_carbs", foodTotalCarbs);
+            food.put("protein", foodProtein);
+            food.put("saturated_fats", foodSaturatedFats);
+            food.put("trans_fats", foodTransFats);
+            food.put("cholesterol", foodCholesterol);
+            food.put("sodium", foodSodium);
+            food.put("potassium", foodPotassium);
+            food.put("cellulose", foodCellulose);
+            food.put("sugar", foodSugar);
+            food.put("a", foodA);
+            food.put("c", foodC);
+            food.put("calcium", foodCalcium);
+            food.put("iron", foodIron);
+            food.put("portions", foodPortions);
+            food.put("type", typeOfFood);
+            food.put("_id", foodId);
             foods.add(food);
             foodsCursor.moveToNext();
         }
@@ -99,6 +132,20 @@ public class FoodItemsActivity extends AppCompatActivity {
             foodItemsActivityFoodsSplitter.setLayoutParams(foodItemsActivityFoodsSplitterLayoutParams);
             foodItemsActivityFoodsSplitter.setBackgroundColor(Color.rgb(200, 200, 200));
             LinearLayout foodItemsActivityFood = new LinearLayout(FoodItemsActivity.this);
+            Object rawFoodId = food.get("_id");
+            String foodId = rawFoodId.toString();
+            foodItemsActivityFood.setContentDescription(foodId);
+            foodItemsActivityFood.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CharSequence rawFoodId = view.getContentDescription();
+                    String foodId = rawFoodId.toString();
+                    int parsedFoodId = Integer.valueOf(foodId);
+                    Intent intent = new Intent(FoodItemsActivity.this, EditFoodItemActivity.class);
+                    intent.putExtra("id", parsedFoodId);
+                    FoodItemsActivity.this.startActivity(intent);
+                }
+            });
             foodItemsActivityFood.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout foodItemsActivityFoodAside = new LinearLayout(FoodItemsActivity.this);
             foodItemsActivityFoodAside.setOrientation(LinearLayout.VERTICAL);
@@ -113,7 +160,10 @@ public class FoodItemsActivity extends AppCompatActivity {
             Object rawFoodCallories = food.get("callories");
             String foodCallories = rawFoodCallories.toString();
             int parsedFoodCallories = Integer.valueOf(foodCallories);
-            String foodInfo = parsedFoodCallories + " ккал, 1 порция";
+            Object rawFoodPortions = food.get("portions");
+            String foodPortions = rawFoodPortions.toString();
+            double parsedFoodPortions = Float.valueOf(foodPortions);
+            String foodInfo = parsedFoodCallories + " ккал, " + parsedFoodPortions + " порция";
             foodItemsActivityFoodAsideLabel.setText(foodInfo);
             foodItemsActivityFoodAside.addView(foodItemsActivityFoodAsideLabel);
             foodItemsActivityFood.addView(foodItemsActivityFoodAside);

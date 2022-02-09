@@ -57,6 +57,9 @@
         <activity
             android:name=".AddFoodItemActivity"
         />
+        <activity
+            android:name=".EditFoodItemActivity"
+        />
     </application>
 
 </manifest>
