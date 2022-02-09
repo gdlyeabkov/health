@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class FoodItemsActivity extends AppCompatActivity {
     public String foodType;
     public LinearLayout foodItemsActivityFoods;
     public ArrayList<HashMap<String, Object>> foods;
+    public ViewPager2 activityFoodItemsCurrentTab;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -48,6 +50,7 @@ public class FoodItemsActivity extends AppCompatActivity {
         foodItemsActivityHeaderLabel = findViewById(R.id.food_items_activity_header_label);
         foodItemsActivityFoodsAddItem = findViewById(R.id.food_items_activity_foods_add_item);
         foodItemsActivityFoods = findViewById(R.id.food_items_activity_foods);
+        activityFoodItemsCurrentTab = findViewById(R.id.activity_food_items_current_tab);
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         foodItemsActivityHeaderNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override

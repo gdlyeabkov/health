@@ -97,7 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:max="10"
-                        android:progress="3" />
+                        android:progress="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -119,9 +119,9 @@
 
                     <ImageView
                         android:id="@+id/edit_food_item_activity_body_portions_footer_icon"
-                        android:layout_width="wrap_content"
+                        android:layout_width="1dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="125dp"
+                        android:layout_marginRight="145dp"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
                         app:srcCompat="@drawable/dropdown_logo" />

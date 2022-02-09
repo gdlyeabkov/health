@@ -1,12 +1,19 @@
 package softtrack.product.health;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -39,7 +46,10 @@ public class EditFoodItemActivity extends AppCompatActivity {
     public TextView editFoodItemActivityIronLabel;
     public TextView editFoodItemActivityPotassiumLabel;
     public TextView editFoodItemActivitySugarLabel;
-
+    public Button editFoodItemActivityBodyPortionsScaleValue;
+    public SeekBar editFoodItemActivityBodyPortionsScaleTimeline;
+    public LinearLayout editFoodItemActivityBodyPortionsFooter;
+    public TextView editFoodItemActivityBodyPortionsFooterLabel;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -72,7 +82,10 @@ public class EditFoodItemActivity extends AppCompatActivity {
         editFoodItemActivityPortionSizeLabel = findViewById(R.id.edit_food_item_activity_portion_size_label);
         editFoodItemActivityCalloriesLabel = findViewById(R.id.edit_food_item_activity_calories_label);
         editFoodItemActivityProteinLabel = findViewById(R.id.edit_food_item_activity_protein_label);
-
+        editFoodItemActivityBodyPortionsScaleValue = findViewById(R.id.edit_food_item_activity_body_portions_scale_value);
+        editFoodItemActivityBodyPortionsScaleTimeline = findViewById(R.id.edit_food_item_activity_body_portions_scale_timeline);
+        editFoodItemActivityBodyPortionsFooter = findViewById(R.id.edit_food_item_activity_body_portions_footer);
+        editFoodItemActivityBodyPortionsFooterLabel = findViewById(R.id.edit_food_item_activity_body_portions_footer_label);
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         Intent myIntent = getIntent();
         Bundle extras = myIntent.getExtras();
@@ -100,6 +113,8 @@ public class EditFoodItemActivity extends AppCompatActivity {
             int foodCalcium = foodsCursor.getInt(15);
             int foodIron = foodsCursor.getInt(16);
             double foodPortions = foodsCursor.getDouble(0);
+            editFoodItemActivityBodyPortionsScaleTimeline.setProgress(((int)(foodPortions)) * 10);
+            editFoodItemActivityBodyPortionsScaleValue.setText(String.valueOf(foodPortions));
             String typeOfFood = foodsCursor.getString(17);
             food.put("name", foodName);
             food.put("callories", foodCallories);
@@ -169,9 +184,61 @@ public class EditFoodItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO добавить обновление food_items
+                ContentValues contentValues = new ContentValues();
+                int porionProgress = editFoodItemActivityBodyPortionsScaleTimeline.getProgress();
+                float correctPorionProgress = porionProgress / 10;
+                contentValues.put("portions", correctPorionProgress);
+                db.update("food_items", contentValues, "_id = ?", new String[] { Integer.toString(foodId) });
                 Intent intent = new Intent(EditFoodItemActivity.this, FoodItemsActivity.class);
                 intent.putExtra("foodType", foodType);
                 EditFoodItemActivity.this.startActivity(intent);
+            }
+        });
+        editFoodItemActivityBodyPortionsScaleTimeline.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                int maxProgress = seekBar.getMax();
+                boolean isMaxProgress = i == maxProgress;
+                if (isMaxProgress) {
+                    int newMaxProgress = maxProgress + 1;
+                    seekBar.setMax(newMaxProgress);
+                }
+                float neededProgress = seekBar.getProgress() / 10;
+                Log.d("debug", Float.toString(neededProgress));
+//                String rawPortion = String.valueOf(i);
+                String rawPortion = Float.toString(neededProgress);
+                editFoodItemActivityBodyPortionsScaleValue.setText(rawPortion);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        editFoodItemActivityBodyPortionsFooter.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                MenuItem portionMenuItem = contextMenu.add(Menu.NONE, 901, Menu.NONE, "порция");
+                MenuItem clMenuItem = contextMenu.add(Menu.NONE, 902, Menu.NONE, "ккал");
+                portionMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        editFoodItemActivityBodyPortionsFooterLabel.setText("порция");
+                        return false;
+                    }
+                });
+                clMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        editFoodItemActivityBodyPortionsFooterLabel.setText("ккал");
+                        return false;
+                    }
+                });
             }
         });
     }
