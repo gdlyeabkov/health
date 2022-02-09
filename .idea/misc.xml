@@ -4,12 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_active.xml" value="0.1" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_add_food_item.xml" value="0.20464135021097046" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_body.xml" value="0.128" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_exercise.xml" value="0.4" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_fitness.xml" value="0.1837916063675832" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food.xml" value="0.152" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_history.xml" value="0.264" />
-        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items.xml" value="0.1" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items.xml" value="0.15109034267912771" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main_page.xml" value="0.25" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_my_page.xml" value="0.21973929236499068" />

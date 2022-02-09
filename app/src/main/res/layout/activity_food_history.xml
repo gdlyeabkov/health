@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/food_history_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E1E1E1"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/food_history_activity_header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView24"
+        <ImageButton
+            android:id="@+id/food_history_activity_header_back_btn"
             android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/back_arrow_logo" />
+            android:src="@drawable/back_arrow_logo" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/food_history_activity_header_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -29,7 +31,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/food_history_activity_next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -40,12 +42,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/food_history_activity_food_type"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView194"
+            android:id="@+id/food_history_activity_food_type_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,7 +58,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/food_history_activity_food_type_selector"
             android:layout_width="5dp"
             android:layout_height="25dp"
             android:layout_marginLeft="25dp"
@@ -67,7 +70,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/food_history_activity_time_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="75dp"
@@ -80,18 +83,20 @@
         app:cornerRadius="100dp" />
 
     <LinearLayout
+        android:id="@+id/food_history_activity_info"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/food_history_activity_info_block"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView191"
+                android:id="@+id/food_history_activity_info_block_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -101,7 +106,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView192"
+                android:id="@+id/food_history_activity_info_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -110,6 +115,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/food_history_activity_add_products"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -117,13 +123,14 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/food_history_activity_add_products_block"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView190"
+                android:id="@+id/food_history_activity_add_products_block_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -135,7 +142,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/food_history_activity_save_custom_food_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="75dp"

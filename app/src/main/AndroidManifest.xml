@@ -54,6 +54,9 @@
         <activity
             android:name=".RecordSleepDataActivity"
         />
+        <activity
+            android:name=".AddFoodItemActivity"
+        />
     </application>
 
 </manifest>

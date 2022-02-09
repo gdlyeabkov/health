@@ -5,6 +5,7 @@
     android:id="@+id/food_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E1E1E1"
     android:orientation="vertical">
 
     <LinearLayout
@@ -77,7 +78,10 @@
             android:id="@+id/food_activity_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"

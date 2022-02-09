@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ public class FoodActivity extends AppCompatActivity {
     public Button foodActivityAddRecordBtn;
     public ImageButton foodActivityHeaderAsideBackBtn;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
+    public ImageButton foodActivityHeaderArticleAuxBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class FoodActivity extends AppCompatActivity {
     public void initialize() {
         foodActivityAddRecordBtn = findViewById(R.id.food_activity_add_record_btn);
         foodActivityHeaderAsideBackBtn = findViewById(R.id.food_activity_header_aside_back_btn);
+        foodActivityHeaderArticleAuxBtn = findViewById(R.id.food_activity_header_article_aux_btn);
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         Bundle extras = getIntent().getExtras();
         boolean isAddRecord = extras.getBoolean("isAddRecord");
@@ -51,6 +55,14 @@ public class FoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FoodActivity.this, MainActivity.class);
                 FoodActivity.this.startActivity(intent);
+            }
+        });
+        foodActivityHeaderArticleAuxBtn.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                contextMenu.add(Menu.NONE, 801, Menu.NONE, "Установить целейнорму");
+                contextMenu.add(Menu.NONE, 802, Menu.NONE, "Мое питание");
+                contextMenu.add(Menu.NONE, 803, Menu.NONE, "О \"Питании и диете\"");
             }
         });
     }
@@ -71,7 +83,13 @@ public class FoodActivity extends AppCompatActivity {
                     RadioButton selectedMeal = dialogView.findViewById(selectedMealId);
                     CharSequence rawSelectedMealContent = selectedMeal.getText();
                     String selectedMealContent = rawSelectedMealContent.toString();
-                    db.execSQL("INSERT INTO \"food_records\"(type) VALUES (\"" + selectedMealContent + "\");");
+                    // db.execSQL("INSERT INTO \"food_records\"(type) VALUES (\"" + selectedMealContent + "\");");
+
+                    // здесь
+                    Intent intent = new Intent(FoodActivity.this, FoodItemsActivity.class);
+                    intent.putExtra("foodType", selectedMealContent);
+                    FoodActivity.this.startActivity(intent);
+
                 }
             }
         });
