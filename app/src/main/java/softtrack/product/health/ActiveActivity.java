@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ActiveActivity extends AppCompatActivity {
 
     public ImageButton activeActivityHeaderAsideBackBtn;
+    public ImageButton activeActivityHeaderBtnsAuxBtn;
+    public ImageButton activeActivityHeaderBtnsShareBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,11 +23,21 @@ public class ActiveActivity extends AppCompatActivity {
 
     public void initialize() {
         activeActivityHeaderAsideBackBtn = findViewById(R.id.active_activity_header_aside_back_btn);
+        activeActivityHeaderBtnsAuxBtn = findViewById(R.id.active_activity_header_btns_aux_btn);
+        activeActivityHeaderBtnsShareBtn = findViewById(R.id.active_activity_header_btns_share_btn);
         activeActivityHeaderAsideBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActiveActivity.this, MainActivity.class);
                 ActiveActivity.this.startActivity(intent);
+            }
+        });
+        activeActivityHeaderBtnsShareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent share = new Intent(Intent.ACTION_MEDIA_SHARED);
+                // intent.setDataAndType(Uri.fromFile(fileInDir), Files.probeContentType(Paths.get(fileInDir.getPath())));
+                startActivity(Intent.createChooser(share,"Share image"));
             }
         });
     }

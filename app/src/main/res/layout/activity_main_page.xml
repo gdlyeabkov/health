@@ -214,13 +214,14 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/main_page_exercise_block_header"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/main_page_exercise_block_header_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -229,7 +230,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/main_page_exercise_block_header_logs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
@@ -241,12 +242,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/main_page_exercise_block_exercises"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/button2"
+                    android:id="@+id/main_page_exercise_block_exercises_walk"
                     android:layout_width="150dp"
                     android:layout_height="55dp"
                     android:layout_marginLeft="35dp"
@@ -258,7 +260,7 @@
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
-                    android:id="@+id/button3"
+                    android:id="@+id/main_page_exercise_block_exercises_run"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
@@ -270,7 +272,7 @@
                     tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/button4"
+                    android:id="@+id/main_page_exercise_block_exercises_bicycle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
@@ -282,7 +284,7 @@
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
-                    android:id="@+id/button5"
+                    android:id="@+id/main_page_exercise_block_exercises_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"

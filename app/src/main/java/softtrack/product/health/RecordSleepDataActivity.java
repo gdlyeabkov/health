@@ -27,7 +27,6 @@ public class RecordSleepDataActivity extends AppCompatActivity {
     public ArrayList<String> monthsLabels;
     public ArrayList<String> weeksLabels;
     public String oneCharPrefix = "0";
-
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override

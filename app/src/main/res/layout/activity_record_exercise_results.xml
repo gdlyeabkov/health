@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/record_exercise_results_activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E1E1E1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/record_exercise_results_activity_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/record_exercise_results_activity_header_aside"
+            android:layout_width="185dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/record_exercise_results_activity_header_aside_back_btn"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/back_arrow_logo" />
+
+            <TextView
+                android:id="@+id/record_exercise_results_activity_header_aside_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="Ходьба"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/record_exercise_results_activity_header_btns"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="85dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/record_exercise_results_activity_header_btns_share_btn"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/share" />
+
+            <ImageButton
+                android:id="@+id/record_exercise_results_activity_header_btns_aux_btn"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/more_vert_logo" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/record_exercise_results_activity_time_and_awards"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/record_exercise_results_activity_time"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/record_exercise_results_activity_time_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="чт,10 февр" />
+
+            <TextView
+                android:id="@+id/record_exercise_results_activity_time_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="17:16 - 17:56" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/record_exercise_results_activity_awards"
+            android:layout_width="125dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="135dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton19"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/award_logo" />
+
+            <ImageButton
+                android:id="@+id/imageButton18"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/award_logo" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/record_exercise_results_activity_destination"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/record_exercise_results_activity_destination_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0,0 км" />
+
+        <TextView
+            android:id="@+id/record_exercise_results_activity_destination_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="00:25:24 --км/ч" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/record_exercise_results_activity_details"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="15dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/record_exercise_results_activity_details_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сведения о тренировке"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView219"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Время тренировки"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView217"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00:25:24"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="205dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView222"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Общее время"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView220"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="00:39:58"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider24"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="205dp"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView226"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Калории\nтренировки(ккал)"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView224"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="301"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="205dp"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView227"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Всего калорий(ккал)"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView225"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="317"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/record_exercise_results_activity_images"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/record_exercise_results_activity_images_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/record_exercise_results_activity_images_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:text="Изображения" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/record_exercise_results_activity_notes_icon"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="225dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/note_logo"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/record_exercise_results_activity_notes_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:text="Заметки" />
+    </LinearLayout>
+</LinearLayout>

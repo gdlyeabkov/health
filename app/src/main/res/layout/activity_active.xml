@@ -42,32 +42,35 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/active_activity_header_btns"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/active_activity_header_btns_share_btn"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/share" />
+                app:srcCompat="@drawable/share"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/imageButton6"
+                android:id="@+id/active_activity_header_btns_calendar_btn"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/calendar_logo" />
+                app:srcCompat="@drawable/calendar_logo"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/imageButton7"
+                android:id="@+id/active_activity_header_btns_aux_btn"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

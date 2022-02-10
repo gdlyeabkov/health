@@ -39,7 +39,9 @@
         <activity android:name=".RecordSleepDataActivity" />
         <activity android:name=".AddFoodItemActivity" />
         <activity android:name=".EditFoodItemActivity" />
-
+        <activity android:name=".RecordExerciseActivity" />
+        <activity android:name=".RecordExerciseResultsActivity" />
+        <activity android:name=".RecordStartedExerciseActivity" />
         <provider
             android:name=".MySuggestionProvider"
             android:authorities="softtrack.apps.MySuggestionProvider" />

@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,7 +51,9 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public Button mainPageBodyCompositionBlockWrapBodyAddBtn;
     public Button mainPageFoodBlockAddRecordBtn;
     public Button mainPageSleepBlockAddRecordBtn;
-
+    public ImageButton mainPageExerciseBlockExercisesWalk;
+    public ImageButton mainPageExerciseBlockExercisesRun;
+    public ImageButton mainPageExerciseBlockExercisesBicycle;
     public MainPageFragment() {
 
     }
@@ -87,6 +90,9 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageBodyCompositionBlockWrapBodyAddBtn = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_body_add_btn);
         mainPageFoodBlockAddRecordBtn = parentActivity.findViewById(R.id.main_page_food_block_add_record_btn);
         mainPageSleepBlockAddRecordBtn = parentActivity.findViewById(R.id.main_page_sleep_block_add_record_btn);
+        mainPageExerciseBlockExercisesWalk = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_walk);
+        mainPageExerciseBlockExercisesRun = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_run);
+        mainPageExerciseBlockExercisesBicycle = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_bicycle);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,6 +229,30 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(parentActivity, RecordSleepDataActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        mainPageExerciseBlockExercisesWalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
+                intent.putExtra("type", "Ходьба");
+                parentActivity.startActivity(intent);
+            }
+        });
+        mainPageExerciseBlockExercisesRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
+                intent.putExtra("type", "Бег");
+                parentActivity.startActivity(intent);
+            }
+        });
+        mainPageExerciseBlockExercisesBicycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
+                intent.putExtra("type", "Велоспорт");
                 parentActivity.startActivity(intent);
             }
         });
