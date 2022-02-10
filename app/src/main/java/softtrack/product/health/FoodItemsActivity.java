@@ -1,28 +1,43 @@
 package softtrack.product.health;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.CharArrayBuffer;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CursorAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class FoodItemsActivity extends AppCompatActivity {
 
@@ -34,6 +49,12 @@ public class FoodItemsActivity extends AppCompatActivity {
     public LinearLayout foodItemsActivityFoods;
     public ArrayList<HashMap<String, Object>> foods;
     public ViewPager2 activityFoodItemsCurrentTab;
+    public LinearLayout foodItemsActivityCustomMeal;
+    public LinearLayout foodItemsActivitySearch;
+    public LinearLayout foodItemsActivityFavorites;
+    public TabLayout foodItemsMainTabs;
+    public SearchView foodItemsActivitySearchField;
+    public ArrayList<Integer> foodsCallories;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -51,11 +72,24 @@ public class FoodItemsActivity extends AppCompatActivity {
         foodItemsActivityFoodsAddItem = findViewById(R.id.food_items_activity_foods_add_item);
         foodItemsActivityFoods = findViewById(R.id.food_items_activity_foods);
         activityFoodItemsCurrentTab = findViewById(R.id.activity_food_items_current_tab);
+        foodItemsActivitySearch = findViewById(R.id.food_items_activity_search);
+        foodItemsActivityFavorites = findViewById(R.id.food_items_activity_favorites);
+        foodItemsActivityCustomMeal = findViewById(R.id.food_items_activity_custom_meal);
+        foodItemsMainTabs = findViewById(R.id.food_items_main_tabs);
+        foodItemsActivitySearchField = findViewById(R.id.food_items_activity_search_field);
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         foodItemsActivityHeaderNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int totalFoodCallories = 0;
+                for (int foodsCalloriesItem : foodsCallories) {
+                    boolean isCalloriesExists = foodsCalloriesItem >= 0;
+                    if (isCalloriesExists) {
+                        totalFoodCallories += foodsCalloriesItem;
+                    }
+                }
                 Intent intent = new Intent(FoodItemsActivity.this, FoodHistoryActivity.class);
+                intent.putExtra("foodsCallories", totalFoodCallories);
                 intent.putExtra("foodType", foodType);
                 FoodItemsActivity.this.startActivity(intent);
             }
@@ -86,6 +120,7 @@ public class FoodItemsActivity extends AppCompatActivity {
         Cursor foodsCursor = db.rawQuery("Select * from food_items", null);
         long countFoods = DatabaseUtils.queryNumEntries(db, "food_items");
         foodsCursor.moveToFirst();
+        foodsCallories = new ArrayList<Integer>();
         for (int foodsCursorIndex = 0; foodsCursorIndex < countFoods; foodsCursorIndex++) {
             HashMap<String, Object> food = new HashMap<String, Object>();
             String foodName = foodsCursor.getString(1);
@@ -171,14 +206,116 @@ public class FoodItemsActivity extends AppCompatActivity {
             foodItemsActivityFoodAside.addView(foodItemsActivityFoodAsideLabel);
             foodItemsActivityFood.addView(foodItemsActivityFoodAside);
             CheckBox foodItemsActivityFoodSelector = new CheckBox(FoodItemsActivity.this);
+//            foodItemsActivityFoodSelector.setContentDescription(foodCallories);
+            foodItemsActivityFoodSelector.setContentDescription(String.valueOf(foodsCallories.size()));
+            foodItemsActivityFoodSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    CharSequence rawData = compoundButton.getContentDescription();
+                    String parsedRawData = rawData.toString();
+                    int foodCalloriesIndex = Integer.valueOf(parsedRawData);
+                    int ratio = 1;
+                    if (!b) {
+                        ratio = -1;
+                    }
+                    int foodsCalloriesItem = foodsCallories.get(foodCalloriesIndex);
+                    foodsCallories.set(foodCalloriesIndex, foodsCalloriesItem * - ratio);
+                }
+            });
             LinearLayout.LayoutParams foodItemsActivityFoodSelectorLayoutParams = new LinearLayout.LayoutParams(250, ViewGroup.LayoutParams.MATCH_PARENT);
             foodItemsActivityFoodSelectorLayoutParams.setMargins(500, 15, 0, 0);
             foodItemsActivityFoodSelector.setLayoutParams(foodItemsActivityFoodSelectorLayoutParams);
             foodItemsActivityFood.addView(foodItemsActivityFoodSelector);
             foodItemsActivityFoods.addView(foodItemsActivityFoodsSplitter);
+            foodsCallories.add(parsedFoodCallories * - 1);
             foodItemsActivityFoods.addView(foodItemsActivityFood);
         }
 
+        activityFoodItemsCurrentTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = activityFoodItemsCurrentTab.getCurrentItem();
+                if (position == 0) {
+                    foodItemsActivitySearch.setVisibility(View.VISIBLE);
+                    foodItemsActivityFavorites.setVisibility(View.INVISIBLE);
+                    foodItemsActivityCustomMeal.setVisibility(View.INVISIBLE);
+                } else if (position == 1) {
+                    foodItemsActivitySearch.setVisibility(View.INVISIBLE);
+                    foodItemsActivityFavorites.setVisibility(View.VISIBLE);
+                    foodItemsActivityCustomMeal.setVisibility(View.INVISIBLE);
+                } else if (position == 2) {
+                    foodItemsActivitySearch.setVisibility(View.INVISIBLE);
+                    foodItemsActivityFavorites.setVisibility(View.INVISIBLE);
+                    foodItemsActivityCustomMeal.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        activityFoodItemsCurrentTab.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    foodItemsActivitySearch.setVisibility(View.VISIBLE);
+                    foodItemsActivityFavorites.setVisibility(View.INVISIBLE);
+                    foodItemsActivityCustomMeal.setVisibility(View.INVISIBLE);
+                } else if (position == 1) {
+                    foodItemsActivitySearch.setVisibility(View.INVISIBLE);
+                    foodItemsActivityFavorites.setVisibility(View.VISIBLE);
+                    foodItemsActivityCustomMeal.setVisibility(View.INVISIBLE);
+                } else if (position == 2) {
+                    foodItemsActivitySearch.setVisibility(View.INVISIBLE);
+                    foodItemsActivityFavorites.setVisibility(View.INVISIBLE);
+                    foodItemsActivityCustomMeal.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        foodItemsMainTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if (position == 0) {
+                    foodItemsActivitySearch.setVisibility(View.VISIBLE);
+                    foodItemsActivityFavorites.setVisibility(View.GONE);
+                    foodItemsActivityCustomMeal.setVisibility(View.GONE);
+                } else if (position == 1) {
+                    foodItemsActivitySearch.setVisibility(View.GONE);
+                    foodItemsActivityFavorites.setVisibility(View.VISIBLE);
+                    foodItemsActivityCustomMeal.setVisibility(View.GONE);
+                } else if (position == 2) {
+                    foodItemsActivitySearch.setVisibility(View.GONE);
+                    foodItemsActivityFavorites.setVisibility(View.GONE);
+                    foodItemsActivityCustomMeal.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        ArrayList<String> suggestions = new ArrayList<String>();
+        suggestions.add("Apple");
+        suggestions.add("Blueberry");
+        suggestions.add("Carrot");
+        suggestions.add("Daikon");
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.food_item_search_suggestion, null, new String[]{ "apple", "blueberry", "carrot", "daicon" }, new int[]{ R.id.search_suggestions_item, R.id.search_suggestions_item, R.id.search_suggestions_item, R.id.search_suggestions_item }, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        foodItemsActivitySearchField.setSuggestionsAdapter(cursorAdapter);
+        foodItemsActivitySearchField.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                return false;
+            }
+        });
     }
 
 }

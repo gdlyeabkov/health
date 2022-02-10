@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +27,9 @@ public class FoodActivity extends AppCompatActivity {
 
     public Button foodActivityAddRecordBtn;
     public ImageButton foodActivityHeaderAsideBackBtn;
-    @SuppressLint("WrongConstant") public SQLiteDatabase db;
     public ImageButton foodActivityHeaderArticleAuxBtn;
+    public TextView foodActivityBodyInfoLabel;
+    @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class FoodActivity extends AppCompatActivity {
         foodActivityAddRecordBtn = findViewById(R.id.food_activity_add_record_btn);
         foodActivityHeaderAsideBackBtn = findViewById(R.id.food_activity_header_aside_back_btn);
         foodActivityHeaderArticleAuxBtn = findViewById(R.id.food_activity_header_article_aux_btn);
+        foodActivityBodyInfoLabel = findViewById(R.id.food_activity_body_info_label);
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         Bundle extras = getIntent().getExtras();
         boolean isAddRecord = extras.getBoolean("isAddRecord");
@@ -65,6 +71,19 @@ public class FoodActivity extends AppCompatActivity {
                 contextMenu.add(Menu.NONE, 803, Menu.NONE, "О \"Питании и диете\"");
             }
         });
+        int countKCals = 0;
+//        Cursor foodRecordsCursor = db.rawQuery("Select * from food_records", null);
+        Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
+        foodRecordsCursor.moveToFirst();
+//        long countFoodRecords = DatabaseUtils.queryNumEntries(db, "food_records");
+//        for (long foodRecordsIndex = 0; foodRecordsIndex < countFoodRecords; foodRecordsIndex++) {
+            int foodRecordsCallories = foodRecordsCursor.getInt(3);
+            countKCals += foodRecordsCallories;
+//            foodRecordsCursor.moveToNext();
+//        }
+        String rawCountKCals = Integer.toString(countKCals);
+        String parsedCountKCals = rawCountKCals + " ккал";
+        foodActivityBodyInfoLabel.setText(parsedCountKCals);
     }
 
     public void showFoodDialog() {
@@ -83,8 +102,7 @@ public class FoodActivity extends AppCompatActivity {
                     RadioButton selectedMeal = dialogView.findViewById(selectedMealId);
                     CharSequence rawSelectedMealContent = selectedMeal.getText();
                     String selectedMealContent = rawSelectedMealContent.toString();
-                    // db.execSQL("INSERT INTO \"food_records\"(type) VALUES (\"" + selectedMealContent + "\");");
-
+//                     db.execSQL("INSERT INTO \"food_records\"(type) VALUES (\"" + selectedMealContent + "\");");
                     // здесь
                     Intent intent = new Intent(FoodActivity.this, FoodItemsActivity.class);
                     intent.putExtra("foodType", selectedMealContent);

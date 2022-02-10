@@ -11,7 +11,10 @@
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_fitness.xml" value="0.1837916063675832" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food.xml" value="0.152" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_history.xml" value="0.264" />
-        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items.xml" value="0.20507399577167018" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items.xml" value="0.36578171091445427" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items_custom_meal_page.xml" value="0.264" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items_favorites_page.xml" value="0.12708333333333333" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items_search_page.xml" value="0.12708333333333333" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main_page.xml" value="0.25" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_my_page.xml" value="0.21973929236499068" />
@@ -21,8 +24,9 @@
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_sleep.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_sleep_weight_data.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_together.xml" value="0.264" />
-        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_walk.xml" value="0.136" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_walk.xml" value="0.4" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_water.xml" value="0.2828438948995363" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/food_item_search_suggestion.xml" value="0.4" />
       </map>
     </option>
   </component>

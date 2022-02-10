@@ -5,6 +5,7 @@
     <uses-permission
         android:name="android.permission.GET_ACCOUNTS"
         android:maxSdkVersion="22" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Health">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/search_configuration" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -21,45 +26,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ActiveActivity"
-        />
-        <activity
-            android:name=".WalkActivity"
-        />
-        <activity
-            android:name=".ExerciseActivity"
-        />
-        <activity
-            android:name=".FoodActivity"
-        />
-        <activity
-            android:name=".SleepActivity"
-        />
-        <activity
-            android:name=".BodyActivity"
-        />
-        <activity
-            android:name=".WaterActivity"
-        />
-        <activity
-            android:name=".RecordWeightDataActivity"
-        />
-        <activity
-            android:name=".FoodHistoryActivity"
-        />
-        <activity
-            android:name=".FoodItemsActivity"
-        />
-        <activity
-            android:name=".RecordSleepDataActivity"
-        />
-        <activity
-            android:name=".AddFoodItemActivity"
-        />
-        <activity
-            android:name=".EditFoodItemActivity"
-        />
+        <activity android:name=".ActiveActivity" />
+        <activity android:name=".WalkActivity" />
+        <activity android:name=".ExerciseActivity" />
+        <activity android:name=".FoodActivity" />
+        <activity android:name=".SleepActivity" />
+        <activity android:name=".BodyActivity" />
+        <activity android:name=".WaterActivity" />
+        <activity android:name=".RecordWeightDataActivity" />
+        <activity android:name=".FoodHistoryActivity" />
+        <activity android:name=".FoodItemsActivity" />
+        <activity android:name=".RecordSleepDataActivity" />
+        <activity android:name=".AddFoodItemActivity" />
+        <activity android:name=".EditFoodItemActivity" />
+
+        <provider
+            android:name=".MySuggestionProvider"
+            android:authorities="softtrack.apps.MySuggestionProvider" />
     </application>
 
 </manifest>

@@ -66,7 +66,12 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     @Override
     public void onStart() {
         super.onStart();
-        initialize();
+        try {
+            initialize();
+        } catch (Exception e) {
+            String debugMsg = "Ошибка на уровне инициализации";
+            Log.d("debug", debugMsg);
+        }
     }
 
     @SuppressLint("WrongConstant")
@@ -249,18 +254,28 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     @Override
     public void onResume() {
         super.onResume();
-        Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        boolean isAccelerometerExists = accelerometer != null;
-        if (isAccelerometerExists) {
-            sensorManager.registerListener(this, accelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        try {
+            Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            boolean isAccelerometerExists = accelerometer != null;
+            if (isAccelerometerExists) {
+                sensorManager.registerListener(this, accelerometer,
+                        SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+            }
+        } catch (Exception e) {
+            String debugMsg = "Ошибка на уровне сенсора";
+            Log.d("debug", debugMsg);
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(this);
+        try {
+            sensorManager.unregisterListener(this);
+        } catch (Exception e) {
+            String debugMsg = "Ошибка на уровне сенсора";
+            Log.d("debug", debugMsg);
+        }
     }
 
     public void detectWalk(String sensorName, int offset) {

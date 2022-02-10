@@ -89,12 +89,13 @@
                 android:orientation="vertical"></LinearLayout>
 
             <LinearLayout
+                android:id="@+id/food_activity_body_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/food_activity_body_info_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -103,7 +104,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/food_activity_body_info_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0 Ккал"
@@ -112,13 +113,13 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/food_activity_body_info_icon"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     app:srcCompat="@drawable/food_logo" />
 
                 <TextView
-                    android:id="@+id/textView55"
+                    android:id="@+id/food_activity_body_info_help"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Отслеживание питания поможет придерживаться\nздоровой, сбалансированной диеты."
