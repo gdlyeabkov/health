@@ -3,6 +3,7 @@ package softtrack.product.health;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -60,7 +61,7 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
         recordExerciseStartedActivityFooterStoppedBtns = findViewById(R.id.record_exercise_started_activity_footer_stopped_btns);
         recordExerciseStartedActivityBodyDurationTitle = findViewById(R.id.record_exercise_started_activity_body_duration_title);
         isVisible = View.VISIBLE;
-        isUnVisible = View.INVISIBLE;
+        isUnVisible = View.GONE;
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
 
         Intent myIntent = getIntent();
@@ -69,6 +70,7 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
         recordExerciseStartedActivityHeaderAsideBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(RecordStartedExerciseActivity.this, MainActivity.class);
                 RecordStartedExerciseActivity.this.startActivity(intent);
             }
@@ -79,6 +81,7 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 recordExerciseStartedActivityFooterStartedBtns.setVisibility(isUnVisible);
                 recordExerciseStartedActivityFooterStoppedBtns.setVisibility(isVisible);
+                stopTimer();
             }
         });
         recordExerciseStartedActivityFooterStoppedBtnsResumeBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,20 +89,36 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 recordExerciseStartedActivityFooterStartedBtns.setVisibility(isVisible);
                 recordExerciseStartedActivityFooterStoppedBtns.setVisibility(isUnVisible);
+                startTimer();
             }
         });
         recordExerciseStartedActivityFooterStoppedBtnsFinishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.execSQL("INSERT INTO \"exercise_records\"(type, datetime, duration) VALUES (\"" + exerciseType + "\", \"" + "22.11.2000 10:00" + "\", \""  + "00:00:00" + "\");");
+                String duration = "00:00:00";
+                CharSequence rawDuration = recordExerciseStartedActivityBodyDurationTitle.getText();
+                duration = rawDuration.toString();
+                db.execSQL("INSERT INTO \"exercise_records\"(type, datetime, duration) VALUES (\"" + exerciseType + "\", \"" + "22.11.2000 10:00" + "\", \""  + duration + "\");");
                 Intent intent = new Intent(RecordStartedExerciseActivity.this, RecordExerciseResultsActivity.class);
                 intent.putExtra("type", exerciseType);
+                Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
+                foodRecordsCursor.moveToFirst();
+                String startTime = foodRecordsCursor.getString(5);
+                intent.putExtra("startTime", startTime);
+                CharSequence rawCachedDuration = recordExerciseStartedActivityBodyDurationTitle.getText();
+                String cachedDuration = rawCachedDuration.toString();
+                intent.putExtra("duration", cachedDuration);
                 RecordStartedExerciseActivity.this.startActivity(intent);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("is_exercise_enabled", 0);
+                contentValues.put("exercise_duration", "00:00:00");
                 db.update("indicators", contentValues, "_id = 1", new String[] {  });
             }
         });
+        Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
+        foodRecordsCursor.moveToFirst();
+        String rawDuration = foodRecordsCursor.getString(7);
+        recordExerciseStartedActivityBodyDurationTitle.setText(rawDuration);
         startTimer();
     }
 
@@ -108,48 +127,56 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                CharSequence rawSecondsText = recordExerciseStartedActivityBodyDurationTitle.getText();
-                String secondsText = rawSecondsText.toString();
-                String[] timeParts = secondsText.split(timePartsSeparator);
-                String rawHours = timeParts[0];
-                String rawMinutes = timeParts[1];
-                String rawSeconds = timeParts[2];
-                int hours = Integer.valueOf(rawHours);
-                int minutes = Integer.valueOf(rawMinutes);
-                int seconds = Integer.valueOf(rawSeconds);
-                seconds++;
-                boolean isToggleSecond = seconds == countSecondsInMinute;
-                if (isToggleSecond) {
-                    seconds = initialSeconds;
-                    minutes++;
-                    boolean isToggleHour = minutes == countMinutesInHour;
-                    if (isToggleHour) {
-                        minutes = initialMinutes;
-                        hours++;
-                    }
+            CharSequence rawSecondsText = recordExerciseStartedActivityBodyDurationTitle.getText();
+            String secondsText = rawSecondsText.toString();
+            String[] timeParts = secondsText.split(timePartsSeparator);
+            String rawHours = timeParts[0];
+            String rawMinutes = timeParts[1];
+            String rawSeconds = timeParts[2];
+            int hours = Integer.valueOf(rawHours);
+            int minutes = Integer.valueOf(rawMinutes);
+            int seconds = Integer.valueOf(rawSeconds);
+            seconds++;
+            boolean isToggleSecond = seconds == countSecondsInMinute;
+            if (isToggleSecond) {
+                seconds = initialSeconds;
+                minutes++;
+                boolean isToggleHour = minutes == countMinutesInHour;
+                if (isToggleHour) {
+                    minutes = initialMinutes;
+                    hours++;
                 }
-                String updatedHoursText = String.valueOf(hours);
-                int countHoursChars = updatedHoursText.length();
-                boolean isAddHoursPrefix = countHoursChars == 1;
-                if (isAddHoursPrefix) {
-                    updatedHoursText = oneCharPrefix + updatedHoursText;
-                }
-                String updatedMinutesText = String.valueOf(minutes);
-                int countMinutesChars = updatedMinutesText.length();
-                boolean isAddMinutesPrefix = countMinutesChars == 1;
-                if (isAddMinutesPrefix) {
-                    updatedMinutesText = oneCharPrefix + updatedMinutesText;
-                }
-                String updatedSecondsText = String.valueOf(seconds);
-                int countSecondsChars = updatedSecondsText.length();
-                boolean isAddSecondsPrefix = countSecondsChars == 1;
-                if (isAddSecondsPrefix) {
-                    updatedSecondsText = oneCharPrefix + updatedSecondsText;
-                }
-                String currentTime = updatedHoursText + ":" + updatedMinutesText + ":" + updatedSecondsText;
-                recordExerciseStartedActivityBodyDurationTitle.setText(currentTime);
+            }
+            String updatedHoursText = String.valueOf(hours);
+            int countHoursChars = updatedHoursText.length();
+            boolean isAddHoursPrefix = countHoursChars == 1;
+            if (isAddHoursPrefix) {
+                updatedHoursText = oneCharPrefix + updatedHoursText;
+            }
+            String updatedMinutesText = String.valueOf(minutes);
+            int countMinutesChars = updatedMinutesText.length();
+            boolean isAddMinutesPrefix = countMinutesChars == 1;
+            if (isAddMinutesPrefix) {
+                updatedMinutesText = oneCharPrefix + updatedMinutesText;
+            }
+            String updatedSecondsText = String.valueOf(seconds);
+            int countSecondsChars = updatedSecondsText.length();
+            boolean isAddSecondsPrefix = countSecondsChars == 1;
+            if (isAddSecondsPrefix) {
+                updatedSecondsText = oneCharPrefix + updatedSecondsText;
+            }
+            String currentTime = updatedHoursText + ":" + updatedMinutesText + ":" + updatedSecondsText;
+            recordExerciseStartedActivityBodyDurationTitle.setText(currentTime);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("exercise_duration", currentTime);
+            db.update("indicators", contentValues, "_id = 1", new String[] {  });
             }
         }, 0, 1000);
+    }
+
+    public void stopTimer() {
+        timer.purge();
+        timer.cancel();
     }
 
 }

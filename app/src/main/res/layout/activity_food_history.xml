@@ -86,12 +86,14 @@
         android:id="@+id/food_history_activity_info"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#FFFFFF"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/food_history_activity_info_block"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="50dp"
             android:background="#FFFFFF"
             android:orientation="vertical">
 
@@ -112,6 +114,16 @@
                 android:layout_marginLeft="25dp"
                 android:text="углеводы 0 г, Жиры 0 г, Протеин 0 г" />
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/food_history_activity_info_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-50dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
     </LinearLayout>
 
     <LinearLayout

@@ -1,9 +1,11 @@
 package softtrack.product.health;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.CharArrayBuffer;
 import android.database.ContentObserver;
@@ -15,6 +17,8 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +59,8 @@ public class FoodItemsActivity extends AppCompatActivity {
     public TabLayout foodItemsMainTabs;
     public SearchView foodItemsActivitySearchField;
     public ArrayList<Integer> foodsCallories;
+    public ArrayList<CheckBox> foodSelectors;
+    public boolean isDirty = false;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -81,25 +87,34 @@ public class FoodItemsActivity extends AppCompatActivity {
         foodItemsActivityHeaderNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int totalFoodCallories = 0;
-                for (int foodsCalloriesItem : foodsCallories) {
-                    boolean isCalloriesExists = foodsCalloriesItem >= 0;
-                    if (isCalloriesExists) {
-                        totalFoodCallories += foodsCalloriesItem;
-                    }
-                }
-                Intent intent = new Intent(FoodItemsActivity.this, FoodHistoryActivity.class);
-                intent.putExtra("foodsCallories", totalFoodCallories);
-                intent.putExtra("foodType", foodType);
-                FoodItemsActivity.this.startActivity(intent);
+                goToFoodBlock();
             }
         });
         foodItemsActivityHeaderBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodItemsActivity.this, FoodActivity.class);
-                intent.putExtra("isAddRecord", false);
-                FoodItemsActivity.this.startActivity(intent);
+                if (isDirty) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FoodItemsActivity.this);
+                    LayoutInflater inflater = getLayoutInflater();
+                    builder.setCancelable(true);
+                    builder.setPositiveButton("Отменить", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            goToFoodActivity();
+                        }
+                    });
+                    builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.setTitle("Сохранить изменения или удалить их");
+                    alert.show();
+                } else {
+                    goToFoodActivity();
+                }
             }
         });
         Bundle extras = getIntent().getExtras();
@@ -121,6 +136,7 @@ public class FoodItemsActivity extends AppCompatActivity {
         long countFoods = DatabaseUtils.queryNumEntries(db, "food_items");
         foodsCursor.moveToFirst();
         foodsCallories = new ArrayList<Integer>();
+        foodSelectors = new ArrayList<CheckBox>();
         for (int foodsCursorIndex = 0; foodsCursorIndex < countFoods; foodsCursorIndex++) {
             HashMap<String, Object> food = new HashMap<String, Object>();
             String foodName = foodsCursor.getString(1);
@@ -217,9 +233,35 @@ public class FoodItemsActivity extends AppCompatActivity {
                     int ratio = 1;
                     if (!b) {
                         ratio = -1;
+                    } else {
+                        isDirty = true;
                     }
                     int foodsCalloriesItem = foodsCallories.get(foodCalloriesIndex);
                     foodsCallories.set(foodCalloriesIndex, foodsCalloriesItem * - ratio);
+                    int countFoodsCallories = foodsCallories.size();
+                    int foodsCalloriesCursor = 0;
+                    for (CheckBox foodSelector : foodSelectors) {
+                        if (foodSelector.isChecked()) {
+                            foodsCalloriesCursor++;
+                        }
+                    }
+                    if (foodsCalloriesCursor == 0) {
+                        foodItemsActivityHeaderNextBtn.setText("Проп. еду");
+                        foodItemsActivityHeaderNextBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                goToFoodBlock();
+                            }
+                        });
+                    } else if (foodsCalloriesCursor >= 1) {
+                        foodItemsActivityHeaderNextBtn.setText("Далее");
+                        foodItemsActivityHeaderNextBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                goToFoodHistory();
+                            }
+                        });
+                    }
                 }
             });
             LinearLayout.LayoutParams foodItemsActivityFoodSelectorLayoutParams = new LinearLayout.LayoutParams(250, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -228,6 +270,7 @@ public class FoodItemsActivity extends AppCompatActivity {
             foodItemsActivityFood.addView(foodItemsActivityFoodSelector);
             foodItemsActivityFoods.addView(foodItemsActivityFoodsSplitter);
             foodsCallories.add(parsedFoodCallories * - 1);
+            foodSelectors.add(foodItemsActivityFoodSelector);
             foodItemsActivityFoods.addView(foodItemsActivityFood);
         }
 
@@ -316,6 +359,32 @@ public class FoodItemsActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public void goToFoodHistory() {
+        int totalFoodCallories = 0;
+        for (int foodsCalloriesItem : foodsCallories) {
+            boolean isCalloriesExists = foodsCalloriesItem >= 0;
+            if (isCalloriesExists) {
+                totalFoodCallories += foodsCalloriesItem;
+            }
+        }
+        Intent intent = new Intent(FoodItemsActivity.this, FoodHistoryActivity.class);
+        intent.putExtra("foodsCallories", totalFoodCallories);
+        intent.putExtra("foodType", foodType);
+        FoodItemsActivity.this.startActivity(intent);
+    }
+
+    public void goToFoodBlock() {
+        Intent intent = new Intent(FoodItemsActivity.this, FoodActivity.class);
+        intent.putExtra("isAddRecord", false);
+        FoodItemsActivity.this.startActivity(intent);
+    }
+
+    public void goToFoodActivity() {
+        Intent intent = new Intent(FoodItemsActivity.this, FoodActivity.class);
+        intent.putExtra("isAddRecord", false);
+        FoodItemsActivity.this.startActivity(intent);
     }
 
 }

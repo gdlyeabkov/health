@@ -31,6 +31,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainPageFragment extends Fragment implements SensorEventListener {
 
@@ -72,6 +74,14 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public LinearLayout mainPageExerciseBlockActivated;
     public TextView mainPageExerciseBlockActivatedHeaderStartTime;
     public TextView mainPageExerciseBlockActivatedHeaderType;
+    public TextView mainPageExerciseBlockActivatedLabel;
+    public String oneCharPrefix = "0";
+    public String timePartsSeparator = ":";
+    public int initialSeconds = 0;
+    public int initialMinutes = 0;
+    public int countSecondsInMinute = 60;
+    public int countMinutesInHour = 60;
+    public Timer timer;
 
     public MainPageFragment() {
 
@@ -131,6 +141,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockActivated = parentActivity.findViewById(R.id.main_page_exercise_block_activated);
         mainPageExerciseBlockActivatedHeaderStartTime = parentActivity.findViewById(R.id.main_page_exercise_block_activated_header_start_time);
         mainPageExerciseBlockActivatedHeaderType = parentActivity.findViewById(R.id.main_page_exercise_block_activated_header_type);
+        mainPageExerciseBlockActivatedLabel = parentActivity.findViewById(R.id.main_page_exercise_block_activated_label);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,6 +189,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageActiveBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, ActiveActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -186,6 +198,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageWalkBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, WalkActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -194,6 +207,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, ExerciseActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -202,6 +216,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageFoodBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, FoodActivity.class);
                 intent.putExtra("isAddRecord", false);
                 parentActivity.startActivity(intent);
@@ -211,6 +226,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageSleepBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, SleepActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -219,6 +235,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageBodyCompositionBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, BodyActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -227,6 +244,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageWaterBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, WaterActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -260,6 +278,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageBodyCompositionBlockWrapBodyAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, RecordWeightDataActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -267,6 +286,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageFoodBlockAddRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, FoodActivity.class);
                 intent.putExtra("isAddRecord", true);
                 parentActivity.startActivity(intent);
@@ -275,6 +295,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageSleepBlockAddRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, RecordSleepDataActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -282,6 +303,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockExercisesWalk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
                 intent.putExtra("type", "Ходьба");
                 parentActivity.startActivity(intent);
@@ -290,6 +312,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockExercisesRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
                 intent.putExtra("type", "Бег");
                 parentActivity.startActivity(intent);
@@ -298,6 +321,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockExercisesBicycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
                 intent.putExtra("type", "Велоспорт");
                 parentActivity.startActivity(intent);
@@ -338,6 +362,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockExercisesList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, ExercisesListActivity.class);
                 parentActivity.startActivity(intent);
             }
@@ -349,10 +374,12 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             mainPageExerciseBlockActivated.setVisibility(View.VISIBLE);
             mainPageExerciseBlockActivatedHeaderStartTime.setText(exerciseStartTime);
             mainPageExerciseBlockActivatedHeaderType.setText(exerciseType);
+            detectExerciseDuration();
         }
         mainPageExerciseBlockActivated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 Intent intent = new Intent(parentActivity, RecordStartedExerciseActivity.class);
                 intent.putExtra("foodType", "Ходьба");
                 parentActivity.startActivity(intent);
@@ -439,5 +466,77 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         }
     }
 
+    public void detectExerciseDuration() {
+        /*Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
+                foodRecordsCursor.moveToFirst();
+                String rawDuration = foodRecordsCursor.getString(7);
+                mainPageExerciseBlockActivatedLabel.setText(rawDuration);
+            }
+        }, 0, 1000);*/
+        Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
+        foodRecordsCursor.moveToFirst();
+        String rawDuration = foodRecordsCursor.getString(7);
+        mainPageExerciseBlockActivatedLabel.setText(rawDuration);
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                CharSequence rawSecondsText = mainPageExerciseBlockActivatedLabel.getText();
+                String secondsText = rawSecondsText.toString();
+                String[] timeParts = secondsText.split(timePartsSeparator);
+                String rawHours = timeParts[0];
+                String rawMinutes = timeParts[1];
+                String rawSeconds = timeParts[2];
+                int hours = Integer.valueOf(rawHours);
+                int minutes = Integer.valueOf(rawMinutes);
+                int seconds = Integer.valueOf(rawSeconds);
+                seconds++;
+                boolean isToggleSecond = seconds == countSecondsInMinute;
+                if (isToggleSecond) {
+                    seconds = initialSeconds;
+                    minutes++;
+                    boolean isToggleHour = minutes == countMinutesInHour;
+                    if (isToggleHour) {
+                        minutes = initialMinutes;
+                        hours++;
+                    }
+                }
+                String updatedHoursText = String.valueOf(hours);
+                int countHoursChars = updatedHoursText.length();
+                boolean isAddHoursPrefix = countHoursChars == 1;
+                if (isAddHoursPrefix) {
+                    updatedHoursText = oneCharPrefix + updatedHoursText;
+                }
+                String updatedMinutesText = String.valueOf(minutes);
+                int countMinutesChars = updatedMinutesText.length();
+                boolean isAddMinutesPrefix = countMinutesChars == 1;
+                if (isAddMinutesPrefix) {
+                    updatedMinutesText = oneCharPrefix + updatedMinutesText;
+                }
+                String updatedSecondsText = String.valueOf(seconds);
+                int countSecondsChars = updatedSecondsText.length();
+                boolean isAddSecondsPrefix = countSecondsChars == 1;
+                if (isAddSecondsPrefix) {
+                    updatedSecondsText = oneCharPrefix + updatedSecondsText;
+                }
+                String currentTime = updatedHoursText + ":" + updatedMinutesText + ":" + updatedSecondsText;
+                mainPageExerciseBlockActivatedLabel.setText(currentTime);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("exercise_duration", currentTime);
+                db.update("indicators", contentValues, "_id = 1", new String[] {  });
+            }
+        }, 0, 1000);
+    }
+
+    public void stopTimer() {
+        if (timer != null) {
+            timer.purge();
+            timer.cancel();
+        }
+    }
 
 }
