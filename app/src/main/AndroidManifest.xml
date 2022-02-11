@@ -42,6 +42,8 @@
         <activity android:name=".RecordExerciseActivity" />
         <activity android:name=".RecordExerciseResultsActivity" />
         <activity android:name=".RecordStartedExerciseActivity" />
+        <activity android:name=".AddExerciseActivity" />
+        <activity android:name=".ExercisesListActivity" />
         <provider
             android:name=".MySuggestionProvider"
             android:authorities="softtrack.apps.MySuggestionProvider" />

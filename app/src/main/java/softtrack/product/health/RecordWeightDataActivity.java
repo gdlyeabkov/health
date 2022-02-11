@@ -130,10 +130,18 @@ public class RecordWeightDataActivity extends AppCompatActivity {
                 String recordWeightDataActivityBodyNoteFieldContent = rawRecordWeightDataActivityBodyNoteFieldContent.toString();
                 CharSequence rawRecordWeightDataActivityBodyFatFieldContent = recordWeightDataActivityBodyFatField.getText();
                 String recordWeightDataActivityBodyFatFieldContent = rawRecordWeightDataActivityBodyFatFieldContent.toString();
-                int parsedRecordWeightDataActivityBodyFatFieldContent = Integer.valueOf(recordWeightDataActivityBodyFatFieldContent);
+                int parsedRecordWeightDataActivityBodyFatFieldContent = 0;
+                boolean isHaveFat = recordWeightDataActivityBodyFatFieldContent.length() >= 1;
+                if (isHaveFat) {
+                    parsedRecordWeightDataActivityBodyFatFieldContent = Integer.valueOf(recordWeightDataActivityBodyFatFieldContent);
+                }
                 CharSequence rawRecordWeightDataActivityBodyMusculatureFieldContent = recordWeightDataActivityBodyMusculatureField.getText();
                 String recordWeightDataActivityBodyMusculatureFieldContent = rawRecordWeightDataActivityBodyMusculatureFieldContent.toString();
-                int parsedRecordWeightDataActivityBodyMusculatureFieldContent = Integer.valueOf(recordWeightDataActivityBodyMusculatureFieldContent);
+                int parsedRecordWeightDataActivityBodyMusculatureFieldContent = 0;
+                boolean isHaveMusculature = recordWeightDataActivityBodyMusculatureFieldContent.length() >= 1;
+                if (isHaveMusculature) {
+                    parsedRecordWeightDataActivityBodyMusculatureFieldContent = Integer.valueOf(recordWeightDataActivityBodyMusculatureFieldContent);
+                }
                 CharSequence rawRecordWeightDataActivityBodyDateLabelContent = recordWeightDataActivityBodyDateLabel.getText();
                 String recordWeightDataActivityBodyDateLabelContent = rawRecordWeightDataActivityBodyDateLabelContent.toString();
                 String rawSettedWeight = settedRealWeight + "." + settedImaginaryWeight;

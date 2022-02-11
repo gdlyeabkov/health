@@ -103,7 +103,6 @@ public class FoodActivity extends AppCompatActivity {
                     CharSequence rawSelectedMealContent = selectedMeal.getText();
                     String selectedMealContent = rawSelectedMealContent.toString();
 //                     db.execSQL("INSERT INTO \"food_records\"(type) VALUES (\"" + selectedMealContent + "\");");
-                    // здесь
                     Intent intent = new Intent(FoodActivity.this, FoodItemsActivity.class);
                     intent.putExtra("foodType", selectedMealContent);
                     FoodActivity.this.startActivity(intent);

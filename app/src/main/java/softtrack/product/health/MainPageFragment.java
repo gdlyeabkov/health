@@ -5,12 +5,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,8 +31,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import java.util.HashMap;
-
-import javax.security.auth.callback.Callback;
 
 public class MainPageFragment extends Fragment implements SensorEventListener {
 
@@ -54,6 +53,26 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public ImageButton mainPageExerciseBlockExercisesWalk;
     public ImageButton mainPageExerciseBlockExercisesRun;
     public ImageButton mainPageExerciseBlockExercisesBicycle;
+    public TextView mainPageBodyCompositionBlockWrapFooterWeight;
+    public LinearLayout mainPageBodyCompositionBlockWrapFooterData;
+    public LinearLayout mainPageBodyCompositionBlockWrapFooter;
+    public TextView mainPageBodyCompositionBlockWrapFooterDataWeightLabel;
+    public TextView mainPageBodyCompositionBlockWrapFooterDataFatLabel;
+    public TextView mainPageBodyCompositionBlockWrapFooterDataMusculatureLabel;
+    public TextView mainPageBodyCompositionBlockWrapFooterWeightLabel;
+    public TextView mainPageBodyCompositionBlockWrapFooterFatLabel;
+    public TextView mainPageBodyCompositionBlockWrapFooterMusculatureLabel;
+    public LinearLayout mainPageBodyCompositionBlockWrapFooterFat;
+    public LinearLayout mainPageBodyCompositionBlockWrapFooterMusculature;
+    public ImageView mainPageBodyCompositionBlockWrapBodyIconFat;
+    public ImageView mainPageBodyCompositionBlockWrapBodyIconMusculature;
+    public TextView mainPageActiveBlockAsideFooterWalkLabel;
+    public ImageButton mainPageExerciseBlockExercisesList;
+    public LinearLayout mainPageExerciseBlock;
+    public LinearLayout mainPageExerciseBlockActivated;
+    public TextView mainPageExerciseBlockActivatedHeaderStartTime;
+    public TextView mainPageExerciseBlockActivatedHeaderType;
+
     public MainPageFragment() {
 
     }
@@ -93,6 +112,25 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockExercisesWalk = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_walk);
         mainPageExerciseBlockExercisesRun = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_run);
         mainPageExerciseBlockExercisesBicycle = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_bicycle);
+        // mainPageBodyCompositionBlockWrapFooterWeight = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_weight_block);
+        mainPageBodyCompositionBlockWrapFooterData = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_data);
+        mainPageBodyCompositionBlockWrapFooter = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer);
+        mainPageBodyCompositionBlockWrapFooterDataWeightLabel = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_data_weight_label);
+        mainPageBodyCompositionBlockWrapFooterDataFatLabel = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_data_fat_label);
+        mainPageBodyCompositionBlockWrapFooterDataMusculatureLabel = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_data_musculature_label);
+        mainPageBodyCompositionBlockWrapFooterWeightLabel = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_weight_label);
+        mainPageBodyCompositionBlockWrapFooterFatLabel = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_fat_label);
+        mainPageBodyCompositionBlockWrapFooterMusculatureLabel = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_musculature_label);
+        mainPageBodyCompositionBlockWrapFooterFat = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_fat);
+        mainPageBodyCompositionBlockWrapFooterMusculature = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_musculature);
+        mainPageBodyCompositionBlockWrapBodyIconFat = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_body_icon_fat);
+        mainPageBodyCompositionBlockWrapBodyIconMusculature = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_body_icon_musculature);
+        mainPageActiveBlockAsideFooterWalkLabel = parentActivity.findViewById(R.id.main_page_active_block_aside_footer_walk_label);
+        mainPageExerciseBlockExercisesList = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_list);
+        mainPageExerciseBlock = parentActivity.findViewById(R.id.main_page_exercise_block);
+        mainPageExerciseBlockActivated = parentActivity.findViewById(R.id.main_page_exercise_block_activated);
+        mainPageExerciseBlockActivatedHeaderStartTime = parentActivity.findViewById(R.id.main_page_exercise_block_activated_header_start_time);
+        mainPageExerciseBlockActivatedHeaderType = parentActivity.findViewById(R.id.main_page_exercise_block_activated_header_type);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +142,9 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
                     glassesCount -= 1;
                     String updatedRawGlassesCount = String.valueOf(glassesCount);
                     mainPageWaterBlockDrinkGlasses.setText(updatedRawGlassesCount);
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("water", glassesCount);
+                    db.update("indicators", contentValues, "_id = 1", new String[] {  });
                     boolean isCanNotDecrease = glassesCount == 0;
                     if (isCanNotDecrease) {
                         mainPageWaterBlockDrinkGlassesDecreaseBtn.setEnabled(false);
@@ -128,6 +169,9 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
                 glassesCount += 1;
                 String updatedRawGlassesCount = String.valueOf(glassesCount);
                 mainPageWaterBlockDrinkGlasses.setText(updatedRawGlassesCount);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("water", glassesCount);
+                db.update("indicators", contentValues, "_id = 1", new String[] {  });
             }
         });
         LinearLayout mainPageActiveBlock = parentActivity.findViewById(R.id.main_page_active_block);
@@ -196,6 +240,9 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         int water = indicatorsCursor.getInt(1);
         int walk = indicatorsCursor.getInt(2);
         int food = indicatorsCursor.getInt(3);
+        int rawIsExerciseEnabled = indicatorsCursor.getInt(4);
+        String exerciseStartTime = indicatorsCursor.getString(5);
+        String exerciseType = indicatorsCursor.getString(6);
         indicators.put("water", water);
         indicators.put("walk", walk);
         indicators.put("food", food);
@@ -253,6 +300,61 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             public void onClick(View view) {
                 Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
                 intent.putExtra("type", "Велоспорт");
+                parentActivity.startActivity(intent);
+            }
+        });
+
+        Cursor bodyRecordsCursor = db.rawQuery("Select * from body_records", null);
+        bodyRecordsCursor.moveToLast();
+        long bodyRecordsCount = DatabaseUtils.queryNumEntries(db, "body_records");
+        boolean isHaveBodyData = bodyRecordsCount >= 1;
+        if (isHaveBodyData) {
+            int musculature = bodyRecordsCursor.getInt(2);
+            int fat = bodyRecordsCursor.getInt(3);
+            float weight = bodyRecordsCursor.getFloat(4);
+            String rawWeight = String.valueOf(weight);
+            String rawFat = String.valueOf(fat);
+            String rawMusculature = String.valueOf(musculature);
+            /*mainPageBodyCompositionBlockWrapFooterData.setVisibility(View.VISIBLE);
+            mainPageBodyCompositionBlockWrapFooter.setVisibility(View.GONE);
+            mainPageBodyCompositionBlockWrapFooterDataWeightLabel.setText(rawWeight);
+            mainPageBodyCompositionBlockWrapFooterDataFatLabel.setText(rawFat);
+            mainPageBodyCompositionBlockWrapFooterDataMusculatureLabel.setText(rawMusculature);*/
+            mainPageBodyCompositionBlockWrapFooterWeightLabel.setText(rawWeight);
+            boolean isHaveFat = fat >= 1;
+            if (isHaveFat) {
+                mainPageBodyCompositionBlockWrapFooterFat.setVisibility(View.VISIBLE);
+                mainPageBodyCompositionBlockWrapFooterFatLabel.setText(rawFat);
+                mainPageBodyCompositionBlockWrapBodyIconFat.setVisibility(View.VISIBLE);
+            }
+            boolean isHaveMusculature = musculature >= 1;
+            if (isHaveMusculature) {
+                mainPageBodyCompositionBlockWrapFooterMusculature.setVisibility(View.VISIBLE);
+                mainPageBodyCompositionBlockWrapFooterMusculatureLabel.setText(rawMusculature);
+                mainPageBodyCompositionBlockWrapBodyIconMusculature.setVisibility(View.VISIBLE);
+            }
+        }
+        mainPageActiveBlockAsideFooterWalkLabel.setText(rawWalk);
+        mainPageExerciseBlockExercisesList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, ExercisesListActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+
+        boolean isExerciseEnabled = rawIsExerciseEnabled == 1;
+        if (isExerciseEnabled) {
+            mainPageExerciseBlock.setVisibility(View.GONE);
+            mainPageExerciseBlockActivated.setVisibility(View.VISIBLE);
+            mainPageExerciseBlockActivatedHeaderStartTime.setText(exerciseStartTime);
+            mainPageExerciseBlockActivatedHeaderType.setText(exerciseType);
+        }
+        mainPageExerciseBlockActivated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, RecordStartedExerciseActivity.class);
+                intent.putExtra("foodType", "Ходьба");
                 parentActivity.startActivity(intent);
             }
         });
@@ -332,6 +434,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("walk", parsedCurrentWalkData);
                 db.update("indicators", contentValues, "_id = 1", new String[] {  });
+                mainPageActiveBlockAsideFooterWalkLabel.setText(rawWalkData);
             }
         }
     }

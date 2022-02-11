@@ -69,6 +69,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/record_exercise_started_activity_body_header"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="vertical">
@@ -97,28 +98,31 @@
         </LinearLayout>
 
         <TableLayout
+            android:id="@+id/record_exercise_started_activity_body_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="50dp">
 
             <TableRow
+                android:id="@+id/record_exercise_started_activity_body_table_first_row"
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
 
                 <LinearLayout
+                    android:id="@+id/record_exercise_started_activity_body_duration"
                     android:layout_width="205dp"
                     android:layout_height="195dp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/record_exercise_started_activity_body_duration_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Длительность"
                         android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/record_exercise_started_activity_body_duration_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="00:00:00"

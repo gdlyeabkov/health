@@ -136,12 +136,12 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("WrongConstant")
     public void initDB() {
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS indicators (_id INTEGER PRIMARY KEY AUTOINCREMENT, water INTEGER, walk INTEGER, food INTEGER);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS indicators (_id INTEGER PRIMARY KEY AUTOINCREMENT, water INTEGER, walk INTEGER, food INTEGER, is_exercise_enabled BOOLEAN, exercise_start_time TEXT, exercise_type TEXT);");
         Cursor indicatorsCursor = db.rawQuery("Select * from indicators", null);
         long countIndicators = DatabaseUtils.queryNumEntries(db, "indicators");
         boolean isPreInstall = countIndicators <= 0;
         if (isPreInstall) {
-            db.execSQL("INSERT INTO \"indicators\"(water, walk, food) VALUES (" + 0 + ", " + 0 + ", " + 0 + ");");
+            db.execSQL("INSERT INTO \"indicators\"(water, walk, food, is_exercise_enabled, exercise_start_time, exercise_type) VALUES (" + 0 + ", " + 0 + ", " + 0 + ", " + false + ", \"" + "00:00" + "\", \"" + "Ходьба" + "\");");
         }
         db.execSQL("CREATE TABLE IF NOT EXISTS body_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, marks TEXT, musculature INTEGER, fat INTEGER, weight REAL, date TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS sleep_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, hours TEXT, minutes TEXT, date TEXT);");
