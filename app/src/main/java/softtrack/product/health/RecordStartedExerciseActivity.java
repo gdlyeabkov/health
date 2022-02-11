@@ -98,7 +98,6 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
                 String duration = "00:00:00";
                 CharSequence rawDuration = recordExerciseStartedActivityBodyDurationTitle.getText();
                 duration = rawDuration.toString();
-                db.execSQL("INSERT INTO \"exercise_records\"(type, datetime, duration) VALUES (\"" + exerciseType + "\", \"" + "22.11.2000 10:00" + "\", \""  + duration + "\");");
                 Intent intent = new Intent(RecordStartedExerciseActivity.this, RecordExerciseResultsActivity.class);
                 intent.putExtra("type", exerciseType);
                 Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
@@ -113,6 +112,16 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
                 contentValues.put("is_exercise_enabled", 0);
                 contentValues.put("exercise_duration", "00:00:00");
                 db.update("indicators", contentValues, "_id = 1", new String[] {  });
+                Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                String rawDay = String.valueOf(day);
+                int month = calendar.get(Calendar.MONTH);
+                String rawMonth = String.valueOf(month);
+                int year = calendar.get(Calendar.YEAR);
+                String rawYear = String.valueOf(year);
+                String date = rawDay + "." + rawMonth + "." + rawYear;
+                String dateTime = date + " " + startTime;
+                db.execSQL("INSERT INTO \"exercise_records\"(type, datetime, duration) VALUES (\"" + exerciseType + "\", \"" + dateTime + "\", \""  + duration + "\");");
             }
         });
         Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
