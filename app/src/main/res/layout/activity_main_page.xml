@@ -136,6 +136,16 @@
             android:orientation="vertical"
             android:outlineProvider="bounds">
 
+            <ImageButton
+                android:id="@+id/imageButton27"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="350dp"
+                android:layout_weight="1"
+                android:scaleType="fitStart"
+                android:visibility="gone"
+                app:srcCompat="@drawable/minus_logo" />
+
             <TextView
                 android:id="@+id/main_page_walk_block_header"
                 android:layout_width="wrap_content"

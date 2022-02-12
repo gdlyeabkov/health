@@ -1,6 +1,473 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_my_page_activitity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E1E1E1"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:id="@+id/edit_my_page_activitity_body_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/edit_my_page_activitity_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/edit_my_page_activitity_body_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/user_logo"
+                tools:srcCompat="@drawable/user_logo" />
+
+            <LinearLayout
+                android:id="@+id/edit_my_page_activitity_body_shortcut_icons"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitStart"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/user_logo" />
+
+                <ImageButton
+                    android:id="@+id/imageButton24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitStart"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/user_logo" />
+
+                <ImageButton
+                    android:id="@+id/imageButton23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitStart"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/user_logo" />
+
+                <ImageButton
+                    android:id="@+id/imageButton22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitStart"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/user_logo" />
+
+                <ImageButton
+                    android:id="@+id/imageButton21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitStart"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/user_logo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/edit_my_page_activitity_body_gallery_and_camera_btns"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/edit_my_page_activitity_body_gallerybtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#AFAFAF"
+                    android:outlineProvider="none"
+                    android:text="Галерея"
+                    android:textColor="#000000"
+                    app:cornerRadius="100dp" />
+
+                <Button
+                    android:id="@+id/edit_my_page_activitity_body_camera_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#AFAFAF"
+                    android:outlineProvider="none"
+                    android:text="Камера"
+                    android:textColor="#000000"
+                    app:cornerRadius="100dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/edit_my_page_activitity_body_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/edit_my_page_activitity_body_nickname_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Псевдоним"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edit_my_page_activitity_body_nickname_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/edit_my_page_activitity_body_characteristics"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/edit_my_page_activitity_body_characteristics_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_gender_icon_wrap"
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/edit_my_page_activitity_body_characteristics_gender_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gender_logo" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_gender_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="Пол" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_my_page_activitity_body_characteristics_growth"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_growth_icon_wrap"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/edit_my_page_activitity_body_characteristics_growth_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/growth_logo" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_growth_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="Рост" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_my_page_activitity_body_characteristics_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_weight_icon_wrap"
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/edit_my_page_activitity_body_characteristics_weight_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/body_composition_logo" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_weight_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="74,2 кг" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_my_page_activitity_body_characteristics_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_birthday_icon_wrap"
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/edit_my_page_activitity_body_characteristics_birthday_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/birthday_logo" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/edit_my_page_activitity_body_characteristics_birthday_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="22 нояб. 2000 г." />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/edit_my_page_activitity_body_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Данные про пол, рост, вес и дату рождения\nиспользуются для расчета количества сожженых калорий, оптимального потребления калорий и\nдиапахона частоты пульса во время тренировки.\nВы можете не предоставлять эту информацию, но в\nэтом случае рекомендации по здоровью будут менее\nточными." />
+
+            <LinearLayout
+                android:id="@+id/edit_my_page_activitity_body_characteristics_birthday_active"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/edit_my_page_activitity_body_active_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Уровень активности"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/edit_my_page_activitity_body_active_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_active_sat"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/edit_my_page_activitity_body_active_sat_icon_wrap"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/edit_my_page_activitity_body_active_sat_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/sat_logo" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/edit_my_page_activitity_body_active_sat_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_active_stand"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/edit_my_page_activitity_body_active_stand_icon_wrap"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/edit_my_page_activitity_body_active_stand_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/stand_logo" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/edit_my_page_activitity_body_active_stand_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_active_necessary"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/edit_my_page_activitity_body_active_necessary_icon_wrap"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/edit_my_page_activitity_body_active_necessary_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/walk_logo" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/edit_my_page_activitity_body_active_necessary_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/edit_my_page_activitity_body_active_big"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/edit_my_page_activitity_body_active_big_icon_wrap"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/edit_my_page_activitity_body_active_big_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/run_logo" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/edit_my_page_activitity_body_active_big_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="4"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/edit_my_page_activitity_body_active_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Активный"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/edit_my_page_activitity_body_active_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Обычные ежедневные нагрузки и не менее 60 мин.\nумеренных ежедневных нагрузок"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/edit_my_page_activitity_footer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="-50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/edit_my_page_activitity_footer_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:outlineProvider="none"
+            android:text="Отмена"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/edit_my_page_activitity_footer_save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:outlineProvider="none"
+            android:text="Сохранить"
+            android:textColor="#000000" />
+    </LinearLayout>
+</LinearLayout>
