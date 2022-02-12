@@ -142,12 +142,24 @@ public class MainActivity extends AppCompatActivity {
         boolean isPreInstall = countIndicators <= 0;
         if (isPreInstall) {
             db.execSQL("INSERT INTO \"indicators\"(water, walk, food, is_exercise_enabled, exercise_start_time, exercise_type, exercise_duration) VALUES (" + 0 + ", " + 0 + ", " + 0 + ", " + false + ", \"" + "00:00" + "\", \"" + "Ходьба" + "\", \"" + "00:00:00" + "\");");
+            db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + true + ", \"" + "Ходьба" + "\", " + R.drawable.walk_logo + ", " + true + ");");
+            db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + true + ", \"" + "Бег" + "\", " + R.drawable.run_logo + ", " + true + ");");
+            db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + true + ", \"" + "Велоспорт" + "\", " + R.drawable.bicycle_logo + ", " + true + ");");
+            db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + false + ", \"" + "Поход" + "\", " + R.drawable.camp_logo + ", " + false + ");");
+            db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + false + ", \"" + "Плавание" + "\", " + R.drawable.swim_logo + ", " + false + ");");
+            db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + false + ", \"" + "Йога" + "\", " + R.drawable.yoga_logo + ", " + false  + ");");
         }
         db.execSQL("CREATE TABLE IF NOT EXISTS body_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, marks TEXT, musculature INTEGER, fat INTEGER, weight REAL, date TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS sleep_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, hours TEXT, minutes TEXT, date TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS food_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS exercise_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, datetime TEXT, duration TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS food_items (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, callories INTEGER, total_carbs INTEGER, total_fats INTEGER, protein INTEGER, saturated_fats INTEGER, trans_fats INTEGER, cholesterol INTEGER, sodium INTEGER, potassium INTEGER, cellulose INTEGER, sugar INTEGER, a INTEGER, c INTEGER, calcium INTEGER, iron INTEGER, portions REAL, type TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS exercises (_id INTEGER PRIMARY KEY AUTOINCREMENT, is_activated BOOLEAN, name TEXT, logo INTEGER, is_favorite BOOLEAN);");
+//        long countExercises = DatabaseUtils.queryNumEntries(db, "exercises");
+//        boolean isExercisesNotExists = countExercises <= 0;
+//        if (isExercisesNotExists) {
+
+//        }
     }
 
 }

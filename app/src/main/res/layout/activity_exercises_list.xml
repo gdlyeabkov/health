@@ -4,8 +4,8 @@
     android:id="@+id/exercises_list_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E1E1E1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <LinearLayout
         android:id="@+id/exercises_list_activity_header"
@@ -61,12 +61,13 @@
             android:id="@+id/exercises_list_activity_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="125dp"
@@ -129,4 +130,28 @@
         android:text="Добавить тренировки"
         android:textAlignment="textEnd"
         android:textColor="#000000" />
+
+    <LinearLayout
+        android:id="@+id/exercises_list_activity_footer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-100dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/imageButton14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/textView219"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Скрыть"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>
