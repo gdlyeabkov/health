@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E1E1E1"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/settings_activity_main_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:text="Настройки Softtrack\nЗдоровье"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/settings_activity_body_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:overScrollMode="always">
+
+        <LinearLayout
+            android:id="@+id/settings_activity_body_header_icon_wrap"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/settings_activity_body_header_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/back_arrow_logo" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/settings_activity_body_header_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/settings_activity_body_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/settings_activity_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/textView307"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Общие" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/textView306"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Together" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/textView305"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Дополнительно" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/settings_activity_body_privacy_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Конфиденциальность" />
+
+            <LinearLayout
+                android:id="@+id/settings_activity_body_privacy_menu"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView310"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Уведомление о конфиденциальности" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView312"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Разрешения на доступ к данным" />
+
+                    <TextView
+                        android:id="@+id/textView311"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Разрешите функция Softtrack Здоровье и сторонним приложениям считывать и записывать определенную информацию" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/settings_activity_body_privacy_menu_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Номер телефона" />
+
+                <TextView
+                    android:id="@+id/textView313"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Загрузка личных данных" />
+
+                <TextView
+                    android:id="@+id/textView308"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Удаление личных данных" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView303"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Информация" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"></LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -6,8 +6,13 @@
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_active.xml" value="0.1" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_add_exercise.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_add_food_item.xml" value="0.20464135021097046" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_award.xml" value="0.1" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_awards.xml" value="0.10190217391304347" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_awards_category.xml" value="0.1" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_body.xml" value="0.128" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_edit_food_item.xml" value="0.536" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_edit_my_page.xml" value="0.10190217391304347" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_events.xml" value="0.10190217391304347" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_exercise.xml" value="0.26358695652173914" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_exercises_list.xml" value="0.1460843373493976" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_fitness.xml" value="0.1837916063675832" />
@@ -19,15 +24,19 @@
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items_custom_meal_page.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items_favorites_page.xml" value="0.12708333333333333" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_food_items_search_page.xml" value="0.12708333333333333" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_for_you.xml" value="0.3255208333333333" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main_page.xml" value="0.4" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_main_page.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_my_page.xml" value="0.21973929236499068" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_notifications.xml" value="0.10190217391304347" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_exercise.xml" value="0.3407821229050279" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_exercise_results.xml" value="0.4" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_exercise_started.xml" value="0.20507399577167018" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_food_data.xml" value="0.187984496124031" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_sleep_data.xml" value="0.2" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_weight_data.xml" value="0.2" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings.xml" value="0.12216624685138538" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings_privacy_phone.xml" value="0.33157894736842103" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_sleep.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_sleep_weight_data.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_time_dialog.xml" value="0.264" />

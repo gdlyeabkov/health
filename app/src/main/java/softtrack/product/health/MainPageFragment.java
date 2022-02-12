@@ -82,6 +82,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public int countSecondsInMinute = 60;
     public int countMinutesInHour = 60;
     public Timer timer;
+    public LinearLayout mainPageExerciseBlockExercises;
 
     public MainPageFragment() {
 
@@ -142,6 +143,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockActivatedHeaderStartTime = parentActivity.findViewById(R.id.main_page_exercise_block_activated_header_start_time);
         mainPageExerciseBlockActivatedHeaderType = parentActivity.findViewById(R.id.main_page_exercise_block_activated_header_type);
         mainPageExerciseBlockActivatedLabel = parentActivity.findViewById(R.id.main_page_exercise_block_activated_label);
+        mainPageExerciseBlockExercises = parentActivity.findViewById(R.id.main_page_exercise_block_exercises);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -385,6 +387,41 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
                 parentActivity.startActivity(intent);
             }
         });
+        Cursor exercisesCursor = db.rawQuery("Select * from exercises", null);
+        exercisesCursor.moveToFirst();
+        long countExercises = DatabaseUtils.queryNumEntries(db, "exercises");
+        int favoritedExercisesCounter = 0;
+        for (long exercisesCursorIndex = 0; exercisesCursorIndex < countExercises; exercisesCursorIndex++) {
+            String name = exercisesCursor.getString(2);
+            int isRawFavorite = exercisesCursor.getInt(4);
+            boolean isFavorite = isRawFavorite == 1;
+            boolean isCanCounter = favoritedExercisesCounter <= 2;
+            boolean isAddExercise = isFavorite && isCanCounter;
+            if (isAddExercise) {
+                favoritedExercisesCounter++;
+                ImageButton logo = new ImageButton(parentActivity);
+                logo.setContentDescription(name);
+                logo.setScaleType(ImageView.ScaleType.FIT_XY);
+                LinearLayout.LayoutParams logoLayoutParams = new LinearLayout.LayoutParams(225, 225);
+                logoLayoutParams.setMargins(125, 0, 0, 0);
+                logo.setLayoutParams(logoLayoutParams);
+                int logoSource = exercisesCursor.getInt(3);
+                logo.setImageResource(logoSource);
+                mainPageExerciseBlockExercises.addView(logo, 0);
+                logo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        CharSequence rawLogoData = view.getContentDescription();
+                        String logoData = rawLogoData.toString();
+                        stopTimer();
+                        Intent intent = new Intent(parentActivity, RecordExerciseActivity.class);
+                        intent.putExtra("type", logoData);
+                        parentActivity.startActivity(intent);
+                    }
+                });
+            }
+            exercisesCursor.moveToNext();
+        }
     }
 
     @Override

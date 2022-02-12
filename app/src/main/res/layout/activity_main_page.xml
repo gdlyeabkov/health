@@ -223,7 +223,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/main_page_exercise_block_header_label"
@@ -262,6 +263,7 @@
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitXY"
                     android:src="@drawable/walk_logo"
+                    android:visibility="gone"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
@@ -274,6 +276,7 @@
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitXY"
                     android:src="@drawable/run_logo"
+                    android:visibility="gone"
                     tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                 <ImageButton
@@ -286,6 +289,7 @@
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitXY"
                     android:src="@drawable/bicycle_logo"
+                    android:visibility="gone"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton

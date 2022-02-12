@@ -2,6 +2,10 @@ package softtrack.product.health;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +22,9 @@ public class MyPageFragment extends Fragment {
 
     public MainActivity parentActivity;
     public TextView myPageActivityBodyHeaderLabel;
+    public Button myPageActivityBodyHeaderEditBtn;
+    public TextView myPageActivityBodyFooterNotFound;
+    @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     public MyPageFragment () {
 
@@ -36,9 +43,12 @@ public class MyPageFragment extends Fragment {
         initialize();
     }
 
+    @SuppressLint("WrongConstant")
     public void initialize() {
         parentActivity = (MainActivity) this.getActivity();
         myPageActivityBodyHeaderLabel = parentActivity.findViewById(R.id.my_page_activity_body_header_label);
+        myPageActivityBodyFooterNotFound = parentActivity.findViewById(R.id.my_page_activity_body_footer_not_found);
+        db = parentActivity.openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         AccountManager accountManager = AccountManager.get(parentActivity.getApplicationContext());
         Account[] accounts = accountManager.getAccounts();
         boolean isAccountsDetected = accounts.length >= 1;
@@ -46,6 +56,20 @@ public class MyPageFragment extends Fragment {
             Account myAccount = accounts[0];
             String myAccountName = myAccount.name;
             myPageActivityBodyHeaderLabel.setText(myAccountName);
+        }
+        myPageActivityBodyHeaderEditBtn = parentActivity.findViewById(R.id.my_page_activity_body_header_edit_btn);
+        myPageActivityBodyHeaderEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parentActivity, EditMyPageActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+        long countAwards = DatabaseUtils.queryNumEntries(db, "awards");
+        boolean isAwardsFound = countAwards >= 1;
+        if (isAwardsFound) {
+            myPageActivityBodyFooterNotFound.setVisibility(View.GONE);
+
         }
     }
 

@@ -5,12 +5,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mainHeaderBtn = findViewById(R.id.main_header_btn);
         initializeTabs();
         initDB();
+        setContextMenuForMainPage();
     }
 
     public void initializeTabs() {
@@ -61,24 +64,47 @@ public class MainActivity extends AppCompatActivity {
                 boolean isFitnesTab = tabIndex == 2;
                 boolean isMyPageTab = tabIndex == 3;
                 if (isMainPageTab) {
-                    mainHeaderBtn.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-                        @Override
-                        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                            contextMenu.add(Menu.NONE, 101, Menu.NONE, "Управление элементами");
-                            contextMenu.add(Menu.NONE, 101, Menu.NONE, "Для вас");
-                            contextMenu.add(Menu.NONE, 101, Menu.NONE, "События");
-                            contextMenu.add(Menu.NONE, 101, Menu.NONE, "Уведомления");
-                            contextMenu.add(Menu.NONE, 101, Menu.NONE, "Настр.");
-                        }
-                    });
+                    setContextMenuForMainPage();
                 } else if (isTogetherTab) {
                     mainHeaderBtn.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
                         @Override
                         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                            contextMenu.add(Menu.NONE, 201, Menu.NONE, "Для вас");
-                            contextMenu.add(Menu.NONE, 201, Menu.NONE, "События");
-                            contextMenu.add(Menu.NONE, 201, Menu.NONE, "Уведомления");
-                            contextMenu.add(Menu.NONE, 201, Menu.NONE, "Настр.");
+                            MenuItem forYouMenuItem = contextMenu.add(Menu.NONE, 201, Menu.NONE, "Для вас");
+                            forYouMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    Intent intent = new Intent(MainActivity.this, ForYouActivity.class);
+                                    MainActivity.this.startActivity(intent);
+                                    return false;
+                                }
+                            });
+                            MenuItem eventsMenuItem = contextMenu.add(Menu.NONE, 201, Menu.NONE, "События");
+                            forYouMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    Intent intent = new Intent(MainActivity.this, ForYouActivity.class);
+                                    MainActivity.this.startActivity(intent);
+                                    return false;
+                                }
+                            });
+                            MenuItem notificationsMenuItem = contextMenu.add(Menu.NONE, 201, Menu.NONE, "Уведомления");
+                            notificationsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+                                    MainActivity.this.startActivity(intent);
+                                    return false;
+                                }
+                            });
+                            MenuItem settingsMenuItem = contextMenu.add(Menu.NONE, 201, Menu.NONE, "Настр.");
+                            settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                                    MainActivity.this.startActivity(intent);
+                                    return false;
+                                }
+                            });
                         }
                     });
                 } else if (isFitnesTab) {
@@ -137,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
     public void initDB() {
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS indicators (_id INTEGER PRIMARY KEY AUTOINCREMENT, water INTEGER, walk INTEGER, food INTEGER, is_exercise_enabled BOOLEAN, exercise_start_time TEXT, exercise_type TEXT, exercise_duration TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS exercises (_id INTEGER PRIMARY KEY AUTOINCREMENT, is_activated BOOLEAN, name TEXT, logo INTEGER, is_favorite BOOLEAN);");
         Cursor indicatorsCursor = db.rawQuery("Select * from indicators", null);
         long countIndicators = DatabaseUtils.queryNumEntries(db, "indicators");
         boolean isPreInstall = countIndicators <= 0;
@@ -154,12 +181,52 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS food_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS exercise_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, datetime TEXT, duration TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS food_items (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, callories INTEGER, total_carbs INTEGER, total_fats INTEGER, protein INTEGER, saturated_fats INTEGER, trans_fats INTEGER, cholesterol INTEGER, sodium INTEGER, potassium INTEGER, cellulose INTEGER, sugar INTEGER, a INTEGER, c INTEGER, calcium INTEGER, iron INTEGER, portions REAL, type TEXT);");
-        db.execSQL("CREATE TABLE IF NOT EXISTS exercises (_id INTEGER PRIMARY KEY AUTOINCREMENT, is_activated BOOLEAN, name TEXT, logo INTEGER, is_favorite BOOLEAN);");
-//        long countExercises = DatabaseUtils.queryNumEntries(db, "exercises");
-//        boolean isExercisesNotExists = countExercises <= 0;
-//        if (isExercisesNotExists) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS awards (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
+    }
 
-//        }
+    public void setContextMenuForMainPage() {
+        mainHeaderBtn.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                contextMenu.add(Menu.NONE, 101, Menu.NONE, "Управление элементами");
+                MenuItem forYouMenuItem = contextMenu.add(Menu.NONE, 101, Menu.NONE, "Для вас");
+                forYouMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        Intent intent = new Intent(MainActivity.this, ForYouActivity.class);
+                        MainActivity.this.startActivity(intent);
+                        return false;
+                    }
+                });
+                MenuItem eventsMenuItem = contextMenu.add(Menu.NONE, 101, Menu.NONE, "События");
+                forYouMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        Intent intent = new Intent(MainActivity.this, ForYouActivity.class);
+                        MainActivity.this.startActivity(intent);
+                        return false;
+                    }
+                });
+                MenuItem notificationsMenuItem = contextMenu.add(Menu.NONE, 101, Menu.NONE, "Уведомления");
+                notificationsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+                        MainActivity.this.startActivity(intent);
+                        return false;
+                    }
+                });
+                MenuItem settingsMenuItem = contextMenu.add(Menu.NONE, 101, Menu.NONE, "Настр.");
+                settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                        MainActivity.this.startActivity(intent);
+                        return false;
+                    }
+                });
+            }
+        });
     }
 
 }

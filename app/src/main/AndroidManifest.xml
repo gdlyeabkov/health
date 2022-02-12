@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="softtrack.product.health">
 
     <uses-permission
         android:name="android.permission.GET_ACCOUNTS"
         android:maxSdkVersion="22" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -44,6 +51,15 @@
         <activity android:name=".RecordStartedExerciseActivity" />
         <activity android:name=".AddExerciseActivity" />
         <activity android:name=".ExercisesListActivity" />
+        <activity android:name=".ForYouActivity" />
+        <activity android:name=".EventsActivity" />
+        <activity android:name=".NotificationsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".EditMyPageActivity" />
+        <activity android:name=".AwardsActivity" />
+        <activity android:name=".AwardsCategoryActivity" />
+        <activity android:name=".AwardActivity" />
+        <activity android:name=".SettingsPrivacyPhoneActivity" />
         <provider
             android:name=".MySuggestionProvider"
             android:authorities="softtrack.apps.MySuggestionProvider" />
