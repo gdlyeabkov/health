@@ -60,6 +60,10 @@
         <activity android:name=".AwardsCategoryActivity" />
         <activity android:name=".AwardActivity" />
         <activity android:name=".SettingsPrivacyPhoneActivity" />
+        <activity android:name=".SettingsInfoFeedbackActivity" />
+        <activity android:name=".SettingsGeneralMeasureActivity" />
+        <activity android:name=".SettingsGeneralNotificationsActivity" />
+        <activity android:name=".SettingsGeneralAccessoriesActivity" />
         <provider
             android:name=".MySuggestionProvider"
             android:authorities="softtrack.apps.MySuggestionProvider" />

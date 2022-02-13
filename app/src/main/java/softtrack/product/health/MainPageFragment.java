@@ -405,7 +405,21 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
                 LinearLayout.LayoutParams logoLayoutParams = new LinearLayout.LayoutParams(225, 225);
                 logoLayoutParams.setMargins(125, 0, 0, 0);
                 logo.setLayoutParams(logoLayoutParams);
-                int logoSource = exercisesCursor.getInt(3);
+                //int logoSource = exercisesCursor.getInt(3);
+                int logoSource = 0;
+                if (name == "Ходьба") {
+                    logoSource = R.drawable.walk_logo;
+                } else if (name == "Бег") {
+                    logoSource = R.drawable.run_logo;
+                } else if (name == "Велоспорт") {
+                    logoSource = R.drawable.bicycle_logo;
+                } else if (name == "Поход") {
+                    logoSource = R.drawable.camp_logo;
+                } else if (name == "Йога") {
+                    logoSource = R.drawable.yoga_logo;
+                } else if (name == "Плавание") {
+                    logoSource = R.drawable.swim_logo;
+                }
                 logo.setImageResource(logoSource);
                 mainPageExerciseBlockExercises.addView(logo, 0);
                 logo.setOnClickListener(new View.OnClickListener() {

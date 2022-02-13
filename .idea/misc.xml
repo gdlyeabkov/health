@@ -35,7 +35,10 @@
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_food_data.xml" value="0.187984496124031" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_sleep_data.xml" value="0.2" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_record_weight_data.xml" value="0.2" />
-        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings.xml" value="0.12216624685138538" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings.xml" value="0.264" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings_general_accessories.xml" value="0.264" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings_general_measure.xml" value="0.37176470588235294" />
+        <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings_general_notifications.xml" value="0.2253922967189729" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_settings_privacy_phone.xml" value="0.33157894736842103" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_sleep.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_sleep_weight_data.xml" value="0.264" />

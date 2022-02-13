@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EditMyPageActivity extends AppCompatActivity {
 
     public Button editMyPageActivitityFooterCancelBtn;
+    public Button editMyPageActivitityBodyGalleryBtn;
+    public Button editMyPageActivitityBodyCameraBtn;
+    private static final int PICK_IMAGE = 100;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,6 +24,8 @@ public class EditMyPageActivity extends AppCompatActivity {
 
     public void initialize() {
         editMyPageActivitityFooterCancelBtn = findViewById(R.id.edit_my_page_activitity_footer_cancel_btn);
+        editMyPageActivitityBodyGalleryBtn = findViewById(R.id.edit_my_page_activitity_body_camera_btn);
+        editMyPageActivitityBodyCameraBtn = findViewById(R.id.edit_my_page_activitity_body_camera_btn);
         editMyPageActivitityFooterCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,6 +33,30 @@ public class EditMyPageActivity extends AppCompatActivity {
                 EditMyPageActivity.this.startActivity(intent);
             }
         });
+        editMyPageActivitityBodyGalleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(EditMyPageActivity.this, MainActivity.class);
+//                Intent intent = new Intent(EditMyPageActivity.this, Intent.ACTION_QUICK_CLOCK);
+//                EditMyPageActivity.this.startActivity(Intent.createChooser(intent, ""));
+//                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.sec.android.gallery3d");
+                openGallery();
+            }
+        });
+        editMyPageActivitityBodyCameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EditMyPageActivity.this, MainActivity.class);
+                EditMyPageActivity.this.startActivity(intent);
+            }
+        });
+    }
+
+    private void openGallery() {
+        Intent gallery =
+                new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
     }
 
 }
