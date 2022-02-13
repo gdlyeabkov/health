@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
@@ -162,13 +164,21 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("WrongConstant")
     public void initDB() {
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS indicators (_id INTEGER PRIMARY KEY AUTOINCREMENT, water INTEGER, walk INTEGER, food INTEGER, is_exercise_enabled BOOLEAN, exercise_start_time TEXT, exercise_type TEXT, exercise_duration TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS indicators (_id INTEGER PRIMARY KEY AUTOINCREMENT, water INTEGER, walk INTEGER, food INTEGER, is_exercise_enabled BOOLEAN, exercise_start_time TEXT, exercise_type TEXT, exercise_duration TEXT, photo TEXT, name TEXT, gender TEXT, growth REAL, weight REAL, birthday TEXT, level TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS exercises (_id INTEGER PRIMARY KEY AUTOINCREMENT, is_activated BOOLEAN, name TEXT, logo INTEGER, is_favorite BOOLEAN);");
         Cursor indicatorsCursor = db.rawQuery("Select * from indicators", null);
         long countIndicators = DatabaseUtils.queryNumEntries(db, "indicators");
         boolean isPreInstall = countIndicators <= 0;
         if (isPreInstall) {
-            db.execSQL("INSERT INTO \"indicators\"(water, walk, food, is_exercise_enabled, exercise_start_time, exercise_type, exercise_duration) VALUES (" + 0 + ", " + 0 + ", " + 0 + ", " + false + ", \"" + "00:00" + "\", \"" + "Ходьба" + "\", \"" + "00:00:00" + "\");");
+            AccountManager accountManager = AccountManager.get(getApplicationContext());
+            Account[] accounts = accountManager.getAccounts();
+            boolean isAccountsDetected = accounts.length >= 1;
+            String myAccountName = "";
+            if (isAccountsDetected) {
+                Account myAccount = accounts[0];
+                myAccountName = myAccount.name;
+            }
+            db.execSQL("INSERT INTO \"indicators\"(water, walk, food, is_exercise_enabled, exercise_start_time, exercise_type, exercise_duration, photo, name, gender, growth, weight, birthday, level) VALUES (" + 0 + ", " + 0 + ", " + 0 + ", " + false + ", \"" + "00:00" + "\", \"" + "Ходьба" + "\", \"" + "00:00:00" + "\", \"" + "" + "\", \"" + myAccountName + "\", \"" + "" + "\", " + 0.0 + ", " + 0.0 + ", \"" + "22.11.2000" + "\", \"Сидячий образ жизни" + "" + "\");");
             db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + true + ", \"" + "Ходьба" + "\", " + R.drawable.walk_logo + ", " + true + ");");
             db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + true + ", \"" + "Бег" + "\", " + R.drawable.run_logo + ", " + true + ");");
             db.execSQL("INSERT INTO \"exercises\"(is_activated, name, logo, is_favorite) VALUES (" + true + ", \"" + "Велоспорт" + "\", " + R.drawable.bicycle_logo + ", " + true + ");");
@@ -181,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS food_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS exercise_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, datetime TEXT, duration TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS food_items (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, callories INTEGER, total_carbs INTEGER, total_fats INTEGER, protein INTEGER, saturated_fats INTEGER, trans_fats INTEGER, cholesterol INTEGER, sodium INTEGER, potassium INTEGER, cellulose INTEGER, sugar INTEGER, a INTEGER, c INTEGER, calcium INTEGER, iron INTEGER, portions REAL, type TEXT);");
-        db.execSQL("CREATE TABLE IF NOT EXISTS awards (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS awards (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, type TEXT);");
     }
 
     public void setContextMenuForMainPage() {

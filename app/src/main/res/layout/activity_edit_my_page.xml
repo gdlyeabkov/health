@@ -171,6 +171,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:backgroundTintMode="add"
                             app:srcCompat="@drawable/gender_logo" />
                     </LinearLayout>
 
@@ -289,6 +290,7 @@
                 android:id="@+id/edit_my_page_activitity_body_characteristics_birthday_active"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#FFFFFF"
                 android:orientation="vertical">
 
                 <TextView
@@ -322,6 +324,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:backgroundTintMode="screen"
                                 app:srcCompat="@drawable/sat_logo" />
                         </LinearLayout>
 
@@ -351,6 +354,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:backgroundTintMode="screen"
                                 app:srcCompat="@drawable/stand_logo" />
                         </LinearLayout>
 
@@ -380,6 +384,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:backgroundTintMode="screen"
                                 app:srcCompat="@drawable/walk_logo" />
                         </LinearLayout>
 
@@ -409,6 +414,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:backgroundTintMode="screen"
                                 app:srcCompat="@drawable/run_logo" />
                         </LinearLayout>
 

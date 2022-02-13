@@ -47,7 +47,6 @@
                 android:id="@+id/my_page_activity_body_header_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Игорь Рынцев"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />

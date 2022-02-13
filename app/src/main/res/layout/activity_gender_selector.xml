@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_gender_selector_gender_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioButton
+        android:id="@+id/activity_gender_selector_male_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Мужской" />
+
+    <RadioButton
+        android:id="@+id/activity_gender_selector_female_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Женский" />
+
+    <RadioButton
+        android:id="@+id/activity_gender_selector_other_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Другое" />
+
+    <RadioButton
+        android:id="@+id/activity_gender_selector_not_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Не хочу указывать" />
+</RadioGroup>

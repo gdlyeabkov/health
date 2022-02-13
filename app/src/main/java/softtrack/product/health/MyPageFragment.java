@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ public class MyPageFragment extends Fragment {
     public TextView myPageActivityBodyHeaderLabel;
     public Button myPageActivityBodyHeaderEditBtn;
     public TextView myPageActivityBodyFooterNotFound;
+    public LinearLayout myPageActivityBodyFooter;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     public MyPageFragment () {
@@ -48,6 +51,7 @@ public class MyPageFragment extends Fragment {
         parentActivity = (MainActivity) this.getActivity();
         myPageActivityBodyHeaderLabel = parentActivity.findViewById(R.id.my_page_activity_body_header_label);
         myPageActivityBodyFooterNotFound = parentActivity.findViewById(R.id.my_page_activity_body_footer_not_found);
+        myPageActivityBodyFooter = parentActivity.findViewById(R.id.my_page_activity_body_footer);
         db = parentActivity.openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         AccountManager accountManager = AccountManager.get(parentActivity.getApplicationContext());
         Account[] accounts = accountManager.getAccounts();
@@ -69,8 +73,19 @@ public class MyPageFragment extends Fragment {
         boolean isAwardsFound = countAwards >= 1;
         if (isAwardsFound) {
             myPageActivityBodyFooterNotFound.setVisibility(View.GONE);
-
+            myPageActivityBodyFooter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(parentActivity, AwardsActivity.class);
+                    parentActivity.startActivity(intent);
+                }
+            });
         }
+        Cursor indicatorsCursor = db.rawQuery("Select * from indicators", null);
+        indicatorsCursor.moveToFirst();
+        String name = "";
+        name = indicatorsCursor.getString(9);
+        myPageActivityBodyHeaderLabel.setText(name);
     }
 
 }

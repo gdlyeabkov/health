@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -121,6 +123,7 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
                 String rawYear = String.valueOf(year);
                 String date = rawDay + "." + rawMonth + "." + rawYear;
                 String dateTime = date + " " + startTime;
+                addPossibleBigDurationAward(duration, dateTime);
                 db.execSQL("INSERT INTO \"exercise_records\"(type, datetime, duration) VALUES (\"" + exerciseType + "\", \"" + dateTime + "\", \""  + duration + "\");");
             }
         });
@@ -186,6 +189,48 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
     public void stopTimer() {
         timer.purge();
         timer.cancel();
+    }
+
+    public void addPossibleBigDurationAward(String duration, String dateTime) {
+        Cursor exerciseRecordsCursor = db.rawQuery("Select * from exercise_records", null);
+        exerciseRecordsCursor.moveToFirst();
+        long countExerciseRecords = 0;
+        countExerciseRecords = DatabaseUtils.queryNumEntries(db, "exercise_records");
+        String[] rawDurationParts = duration.split(":");
+        String rawDurationHours = rawDurationParts[0];
+        String rawDurationMinutes = rawDurationParts[1];
+        String rawDurationSeconds = rawDurationParts[2];
+        int durationHours = Integer.valueOf(rawDurationHours);
+        int durationMinutes = Integer.valueOf(rawDurationMinutes);
+        int durationSeconds = Integer.valueOf(rawDurationSeconds);
+        int durationMinutesAsSeconds = durationMinutes * 60;
+        int durationHoursAsSeconds = durationHours * 60 * 60;
+        int totalDurationInSeconds = durationSeconds + durationMinutesAsSeconds + durationHoursAsSeconds;
+        int bigDurationCounter = 0;
+        for (long exerciseRecordsCursorIndex = 0; exerciseRecordsCursorIndex < countExerciseRecords; exerciseRecordsCursorIndex++) {
+            String rawExerciseDuration = exerciseRecordsCursor.getString(3);
+            String[] rawExerciseDurationParts = rawExerciseDuration.split(":");
+            String rawExerciseDurationHours = rawExerciseDurationParts[0];
+            String rawExerciseDurationMinutes = rawExerciseDurationParts[1];
+            String rawExerciseDurationSeconds = rawExerciseDurationParts[2];
+            int exerciseDurationHours = Integer.valueOf(rawExerciseDurationHours);
+            int exerciseDurationMinutes = Integer.valueOf(rawExerciseDurationMinutes);
+            int exerciseDurationSeconds = Integer.valueOf(rawExerciseDurationSeconds);
+            int exerciseDurationMinutesAsSeconds = exerciseDurationMinutes * 60;
+            int exerciseDurationHoursAsSeconds = exerciseDurationHours * 60 * 60;
+            int totalExerciseDurationInSeconds = exerciseDurationSeconds + exerciseDurationMinutesAsSeconds + exerciseDurationHoursAsSeconds;
+            boolean isGtDuration = totalDurationInSeconds > totalExerciseDurationInSeconds;
+            if (isGtDuration) {
+                bigDurationCounter++;
+            }
+            exerciseRecordsCursor.moveToNext();
+        }
+        boolean isGetBigDurationAward = bigDurationCounter == countExerciseRecords;
+        if (isGetBigDurationAward) {
+            String awardName = "Самая большая длительность";
+            String awardDesc = duration + "\n" + dateTime;
+            db.execSQL("INSERT INTO \"awards\"(name, description, type) VALUES (\"" + awardName + "\", \"" + awardDesc + "\", \"" + exerciseType + "\");");
+        }
     }
 
 }

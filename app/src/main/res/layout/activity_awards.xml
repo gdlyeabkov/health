@@ -1,6 +1,456 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/award_activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E1E1E1"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/award_activity_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/awards_activity_header_back_btn_wrap"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/awards_activity_header_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/back_arrow_logo"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/awards_activity_header_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Значки"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/awards_activity_header_calendar_btn_wrap"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/awards_activity_header_calendar_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/calendar_logo"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/awards_activity_body_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/awards_activity_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/awards_activity_body_walk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/awards_activity_body_walk_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Шаги"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView29"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8C8"
+                            app:srcCompat="@drawable/star_price_logo" />
+
+                        <TextView
+                            android:id="@+id/textView410"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Цель достигнута"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="75dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView30"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8C8"
+                            app:srcCompat="@drawable/star_price_logo" />
+
+                        <TextView
+                            android:id="@+id/textView411"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Наибольшее колич. шагов"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/awards_activity_body_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/awards_activity_body_food_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Пища"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/awards_activity_body_food_first_item"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tint="#C8C8C8"
+                        app:srcCompat="@drawable/star_shield_logo" />
+
+                    <TextView
+                        android:id="@+id/textView400"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Цель достигнута"
+                        android:textAlignment="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/awards_activity_body_schedules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/awards_activity_body_schedules_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Программы"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/awards_activity_body_schedules_first_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_schedules_first_item"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView31"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            app:tint="#C8C8C8"
+                            app:srcCompat="@drawable/star_award_logo" />
+
+                        <TextView
+                            android:id="@+id/textView412"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Идеально" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_schedules_second_item"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView32"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            app:tint="#C8C8C8"
+                            app:srcCompat="@drawable/star_award_logo" />
+
+                        <TextView
+                            android:id="@+id/textView413"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Отличная работа" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/awards_activity_body_exercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/awards_activity_body_exercises_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Упражнение"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/awards_activity_body_exercises_first_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_exercises_first_item"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView33"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8C8"
+                            app:srcCompat="@drawable/sport_award_logo" />
+
+                        <TextView
+                            android:id="@+id/textView414"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Общее расстояние"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_exercises_second_item"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView34"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8C8"
+                            app:srcCompat="@drawable/sport_award_logo" />
+
+                        <TextView
+                            android:id="@+id/textView415"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Общее расстояние"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/awards_activity_body_exercises_third_item"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/awards_activity_body_exercises_third_item_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tint="#C8C8CA"
+                        app:srcCompat="@drawable/award_logo" />
+
+                    <TextView
+                        android:id="@+id/textView416"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Записи"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/awards_activity_body_sleep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/awards_activity_body_sleep_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Сон"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/awards_activity_body_sleep_first_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_sleep_first_item"
+                        android:layout_width="205dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView24"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8CA"
+                            app:srcCompat="@drawable/star_shield_logo" />
+
+                        <TextView
+                            android:id="@+id/textView409"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Хорошее соблюдение режима"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_sleep_second_item"
+                        android:layout_width="205dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8CA"
+                            app:srcCompat="@drawable/star_shield_logo" />
+
+                        <TextView
+                            android:id="@+id/textView408"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Хороший сон"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/awards_activity_body_sleep_second_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_sleep_third_item"
+                        android:layout_width="205dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8CA"
+                            app:srcCompat="@drawable/star_shield_logo" />
+
+                        <TextView
+                            android:id="@+id/textView407"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Пробуждение: вовремя"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/awards_activity_body_sleep_fourth_item"
+                        android:layout_width="205dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:tint="#C8C8CA"
+                            app:srcCompat="@drawable/star_shield_logo" />
+
+                        <TextView
+                            android:id="@+id/textView406"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Отход ко сну: вовремя"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
