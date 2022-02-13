@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -18,6 +19,7 @@ public class AwardsActivity extends AppCompatActivity {
     public LinearLayout awardsActivityBodyExercisesThirdItem;
     public ImageView awardsActivityBodyExercisesThirdItemImg;
     public int accessedColor;
+    public ImageButton awardsActivityHeaderBackBtn;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -31,6 +33,7 @@ public class AwardsActivity extends AppCompatActivity {
     public void initialize() {
         awardsActivityBodyExercisesThirdItem = findViewById(R.id.awards_activity_body_exercises_third_item);
         awardsActivityBodyExercisesThirdItemImg = findViewById(R.id.awards_activity_body_exercises_third_item_img);
+        awardsActivityHeaderBackBtn = findViewById(R.id.awards_activity_header_back_btn);
         accessedColor = Color.rgb(0, 0, 0);
         db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         long countExercisesRecords = DatabaseUtils.queryNumEntries(db, "exercise_records");
@@ -40,13 +43,19 @@ public class AwardsActivity extends AppCompatActivity {
             awardsActivityBodyExercisesThirdItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(AwardsActivity.this, AwardActivity.class);
+                    Intent intent = new Intent(AwardsActivity.this, AwardsCategoryActivity.class);
                     intent.putExtra("category", "Упражнение");
                     AwardsActivity.this.startActivity(intent);
                 }
             });
         }
-
+        awardsActivityHeaderBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AwardsActivity.this, MainActivity.class);
+                AwardsActivity.this.startActivity(intent);
+            }
+        });
     }
 
 }

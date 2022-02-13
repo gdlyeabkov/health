@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class MyPageFragment extends Fragment {
     public Button myPageActivityBodyHeaderEditBtn;
     public TextView myPageActivityBodyFooterNotFound;
     public LinearLayout myPageActivityBodyFooter;
+    public ImageView myPageActivityBodyFooterIcon;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     public MyPageFragment () {
@@ -52,6 +54,7 @@ public class MyPageFragment extends Fragment {
         myPageActivityBodyHeaderLabel = parentActivity.findViewById(R.id.my_page_activity_body_header_label);
         myPageActivityBodyFooterNotFound = parentActivity.findViewById(R.id.my_page_activity_body_footer_not_found);
         myPageActivityBodyFooter = parentActivity.findViewById(R.id.my_page_activity_body_footer);
+        myPageActivityBodyFooterIcon = parentActivity.findViewById(R.id.my_page_activity_body_footer_icon);
         db = parentActivity.openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         AccountManager accountManager = AccountManager.get(parentActivity.getApplicationContext());
         Account[] accounts = accountManager.getAccounts();
@@ -73,6 +76,7 @@ public class MyPageFragment extends Fragment {
         boolean isAwardsFound = countAwards >= 1;
         if (isAwardsFound) {
             myPageActivityBodyFooterNotFound.setVisibility(View.GONE);
+            myPageActivityBodyFooterIcon.setVisibility(View.VISIBLE);
             myPageActivityBodyFooter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

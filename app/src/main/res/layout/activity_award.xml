@@ -37,26 +37,72 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:text="Шаги"
+            android:text="Награды"
             android:textSize="24sp"
             android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="fitEnd"
+                app:srcCompat="@drawable/share" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:orientation="vertical">
+        android:layout_height="100dp"
+        android:orientation="horizontal"></LinearLayout>
 
-        <TextView
-            android:id="@+id/textView402"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:text="Раздел наград"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView401"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Велоспорт"
+        android:textAlignment="center"
+        android:textColor="#00C800"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView403"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Самая большая\nдлительность"
+        android:textAlignment="center" />
+
+    <ImageView
+        android:id="@+id/imageView35"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/award_logo" />
+
+    <TextView
+        android:id="@+id/textView404"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="312 мин"
+        android:textAlignment="center"
+        android:textColor="#00C800"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/textView405"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Невероятно! Вы установили новый рекорд,\nпройдя на 287 мин. больше по сравнению с\nпредыдущим рекордом."
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 
 </LinearLayout>

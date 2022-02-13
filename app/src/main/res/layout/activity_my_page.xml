@@ -312,15 +312,39 @@
             android:background="#FFFFFF"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/my_page_activity_body_footer_label"
+            <LinearLayout
+                android:id="@+id/my_page_activity_body_footer_up"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="15dp"
-                android:text="Значки"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/my_page_activity_body_footer_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Значки"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/my_page_activity_body_footer_icon_wrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/my_page_activity_body_footer_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="fitEnd"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/go_logo" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/my_page_activity_body_footer_not_found"
@@ -330,5 +354,6 @@
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
