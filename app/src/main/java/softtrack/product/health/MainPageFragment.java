@@ -30,6 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -83,6 +84,13 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public int countMinutesInHour = 60;
     public Timer timer;
     public LinearLayout mainPageExerciseBlockExercises;
+    public ImageButton mainPageActiveBlockController;
+    public ImageButton mainPageWalkBlockController;
+    public ImageButton mainPageExerciseBlockController;
+    public ImageButton mainPageFoodBlockController;
+    public ImageButton mainPageSleepBlockController;
+    public ImageButton mainPageBodyCompositionBlockController;
+    public ImageButton mainPageWaterBlockController;
 
     public MainPageFragment() {
 
@@ -144,6 +152,13 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockActivatedHeaderType = parentActivity.findViewById(R.id.main_page_exercise_block_activated_header_type);
         mainPageExerciseBlockActivatedLabel = parentActivity.findViewById(R.id.main_page_exercise_block_activated_label);
         mainPageExerciseBlockExercises = parentActivity.findViewById(R.id.main_page_exercise_block_exercises);
+        mainPageActiveBlockController = parentActivity.findViewById(R.id.main_page_active_block_controller);
+        mainPageWalkBlockController = parentActivity.findViewById(R.id.main_page_walk_block_controller);
+        mainPageExerciseBlockController = parentActivity.findViewById(R.id.main_page_exercise_block_controller);
+        mainPageFoodBlockController = parentActivity.findViewById(R.id.main_page_food_block_controller);
+        mainPageSleepBlockController = parentActivity.findViewById(R.id.main_page_sleep_block_controller);
+        mainPageBodyCompositionBlockController = parentActivity.findViewById(R.id.main_page_body_composition_block_controller);
+        mainPageWaterBlockController = parentActivity.findViewById(R.id.main_page_water_block_controller);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -436,6 +451,50 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             }
             exercisesCursor.moveToNext();
         }
+        // mainPageWalkBlockController.setContentDescription("minus");
+        mainPageActiveBlockController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleController(view, R.id.main_page_active_block_controller);
+            }
+        });
+        mainPageWalkBlockController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleController(view, R.id.main_page_walk_block_controller);
+            }
+        });
+        mainPageExerciseBlockController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleController(view, R.id.main_page_exercise_block_controller);
+            }
+        });
+        mainPageFoodBlockController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleController(view, R.id.main_page_food_block_controller);
+            }
+        });
+        mainPageSleepBlockController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleController(view, R.id.main_page_sleep_block_controller);
+            }
+        });
+        mainPageBodyCompositionBlockController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleController(view, R.id.main_page_body_composition_block_controller);
+            }
+        });
+        mainPageWaterBlockController.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleController(view, R.id.main_page_water_block_controller);
+            }
+        });
+        displayHealthItems();
     }
 
     @Override
@@ -518,16 +577,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     }
 
     public void detectExerciseDuration() {
-        /*Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
-                foodRecordsCursor.moveToFirst();
-                String rawDuration = foodRecordsCursor.getString(7);
-                mainPageExerciseBlockActivatedLabel.setText(rawDuration);
-            }
-        }, 0, 1000);*/
         Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
         foodRecordsCursor.moveToFirst();
         String rawDuration = foodRecordsCursor.getString(7);
@@ -588,6 +637,201 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             timer.purge();
             timer.cancel();
         }
+    }
+
+    public void toggleController(View view, int id) {
+        ImageButton controller = parentActivity.findViewById(id);
+//        ImageButton controller = (ImageButton) view;
+        CharSequence rawControllerData = controller.getContentDescription();
+        String controllerData = rawControllerData.toString();
+        boolean isRemovedController = controllerData == "minus";
+        if (isRemovedController) {
+            controller.setImageResource(R.drawable.plus_logo);
+            controller.setColorFilter(Color.rgb(0, 150, 0));
+            view.setContentDescription("plus");
+        } else {
+            controller.setImageResource(R.drawable.minus_logo);
+            controller.setColorFilter(Color.rgb(255, 0, 0));
+            view.setContentDescription("minus");
+        }
+    }
+
+    public void displayHealthItems() {
+        Cursor controllersCursor = db.rawQuery("Select * from controllers", null);
+        controllersCursor.moveToFirst();
+        long countControllers = DatabaseUtils.queryNumEntries(db, "controllers");
+        ArrayList<Boolean> controllersValues = new ArrayList<Boolean>();
+        for (long controllersCursorIndex = 0; controllersCursorIndex < countControllers; controllersCursorIndex++) {
+            String healthItemName = "";
+            healthItemName = controllersCursor.getString(2);
+            boolean isHealthItemActivated = true;
+            int rawIsHealthItemActivated = controllersCursor.getInt(1);
+            isHealthItemActivated = rawIsHealthItemActivated == 1;
+            controllersValues.add(isHealthItemActivated);
+            boolean isActiveItem = healthItemName == "active";
+            boolean isWalkItem = healthItemName == "walk";
+            boolean isExerciseItem = healthItemName == "exercise";
+            boolean isFoodItem = healthItemName == "food";
+            boolean isSleepItem = healthItemName == "sleep";
+            boolean isBodyItem = healthItemName == "body";
+            boolean isWaterItem = healthItemName == "water";
+            if (isActiveItem) {
+                if (isHealthItemActivated) {
+                    mainPageWalkBlockController.setContentDescription("minus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+                } else {
+                    mainPageWalkBlockController.setContentDescription("plus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+                }
+            } else if (isWalkItem) {
+                if (isHealthItemActivated) {
+                    mainPageWalkBlockController.setContentDescription("minus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+                } else {
+                    mainPageWalkBlockController.setContentDescription("plus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+                }
+            } else if (isExerciseItem) {
+                if (isHealthItemActivated) {
+                    mainPageWalkBlockController.setContentDescription("minus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+                } else {
+                    mainPageWalkBlockController.setContentDescription("plus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+                }
+            } else if (isFoodItem) {
+                if (isHealthItemActivated) {
+                    mainPageWalkBlockController.setContentDescription("minus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+                } else {
+                    mainPageWalkBlockController.setContentDescription("plus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+                }
+            } else if (isSleepItem) {
+                if (isHealthItemActivated) {
+                    mainPageWalkBlockController.setContentDescription("minus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+                } else {
+                    mainPageWalkBlockController.setContentDescription("plus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+                }
+            } else if (isBodyItem) {
+                if (isHealthItemActivated) {
+                    mainPageWalkBlockController.setContentDescription("minus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+                } else {
+                    mainPageWalkBlockController.setContentDescription("plus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+                }
+            } else if (isWaterItem) {
+                if (isHealthItemActivated) {
+                    mainPageWalkBlockController.setContentDescription("minus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+                } else {
+                    mainPageWalkBlockController.setContentDescription("plus");
+                    mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+                    mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+                }
+            }
+        }
+        if (controllersValues.get(0)) {
+            mainPageActiveBlockController.setContentDescription("minus");
+            mainPageActiveBlockController.setColorFilter(Color.rgb(255, 0, 0));
+            mainPageActiveBlockController.setImageResource(R.drawable.minus_logo);
+        } else {
+            mainPageActiveBlockController.setContentDescription("plus");
+            mainPageActiveBlockController.setColorFilter(Color.rgb(0, 150, 0));
+            mainPageActiveBlockController.setImageResource(R.drawable.plus_logo);
+            LinearLayout block = parentActivity.findViewById(R.id.main_page_active_block);
+            block.setVisibility(View.GONE);
+        }
+        if (controllersValues.get(1)) {
+
+            mainPageWalkBlockController.setContentDescription("minus");
+            mainPageWalkBlockController.setColorFilter(Color.rgb(255, 0, 0));
+            mainPageWalkBlockController.setImageResource(R.drawable.minus_logo);
+        } else {
+            mainPageWalkBlockController.setContentDescription("plus");
+            mainPageWalkBlockController.setColorFilter(Color.rgb(0, 150, 0));
+            mainPageWalkBlockController.setImageResource(R.drawable.plus_logo);
+            LinearLayout block = parentActivity.findViewById(R.id.main_page_walk_block);
+            block.setVisibility(View.GONE);
+        }
+        if (controllersValues.get(2)) {
+            mainPageExerciseBlockController.setContentDescription("minus");
+            mainPageExerciseBlockController.setColorFilter(Color.rgb(255, 0, 0));
+            mainPageExerciseBlockController.setImageResource(R.drawable.minus_logo);
+        } else {
+            mainPageExerciseBlockController.setContentDescription("plus");
+            mainPageExerciseBlockController.setColorFilter(Color.rgb(0, 150, 0));
+            mainPageExerciseBlockController.setImageResource(R.drawable.plus_logo);
+            LinearLayout block = parentActivity.findViewById(R.id.main_page_exercise_block);
+            block.setVisibility(View.GONE);
+        }
+        if (controllersValues.get(3)) {
+            mainPageFoodBlockController.setContentDescription("minus");
+            mainPageFoodBlockController.setColorFilter(Color.rgb(255, 0, 0));
+            mainPageFoodBlockController.setImageResource(R.drawable.minus_logo);
+        } else {
+            mainPageFoodBlockController.setContentDescription("plus");
+            mainPageFoodBlockController.setColorFilter(Color.rgb(0, 150, 0));
+            mainPageFoodBlockController.setImageResource(R.drawable.plus_logo);
+            LinearLayout block = parentActivity.findViewById(R.id.main_page_food_block);
+            block.setVisibility(View.GONE);
+        }
+        if (controllersValues.get(4)) {
+            mainPageSleepBlockController.setContentDescription("minus");
+            mainPageSleepBlockController.setColorFilter(Color.rgb(255, 0, 0));
+            mainPageSleepBlockController.setImageResource(R.drawable.minus_logo);
+        } else {
+            mainPageSleepBlockController.setContentDescription("plus");
+            mainPageSleepBlockController.setColorFilter(Color.rgb(0, 150, 0));
+            mainPageSleepBlockController.setImageResource(R.drawable.plus_logo);
+            LinearLayout block = parentActivity.findViewById(R.id.main_page_sleep_block);
+            block.setVisibility(View.GONE);
+        }
+        if (controllersValues.get(5)) {
+            mainPageBodyCompositionBlockController.setContentDescription("minus");
+            mainPageBodyCompositionBlockController.setColorFilter(Color.rgb(255, 0, 0));
+            mainPageBodyCompositionBlockController.setImageResource(R.drawable.minus_logo);
+        } else {
+            mainPageBodyCompositionBlockController.setContentDescription("plus");
+            mainPageBodyCompositionBlockController.setColorFilter(Color.rgb(0, 150, 0));
+            mainPageBodyCompositionBlockController.setImageResource(R.drawable.plus_logo);
+            LinearLayout block = parentActivity.findViewById(R.id.main_page_body_composition_block);
+            block.setVisibility(View.GONE);
+        }
+        if (controllersValues.get(6)) {
+            mainPageWaterBlockController.setContentDescription("minus");
+            mainPageWaterBlockController.setColorFilter(Color.rgb(255, 0, 0));
+            mainPageWaterBlockController.setImageResource(R.drawable.minus_logo);
+        } else {
+            mainPageWaterBlockController.setContentDescription("plus");
+            mainPageWaterBlockController.setColorFilter(Color.rgb(0, 150, 0));
+            mainPageWaterBlockController.setImageResource(R.drawable.plus_logo);
+            LinearLayout block = parentActivity.findViewById(R.id.main_page_water_block);
+            block.setVisibility(View.GONE);
+        }
+//         mainPageActiveBlockController.setContentDescription("minus");
+//        mainPageWalkBlockController.setContentDescription("minus");
+//        mainPageExerciseBlockController.setContentDescription("minus");
+//        mainPageFoodBlockController.setContentDescription("minus");
+//        mainPageSleepBlockController.setContentDescription("minus");
+//        mainPageBodyCompositionBlockController.setContentDescription("minus");
+//        mainPageWaterBlockController.setContentDescription("minus");
     }
 
 }

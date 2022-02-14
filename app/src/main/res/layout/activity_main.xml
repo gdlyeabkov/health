@@ -84,4 +84,39 @@
             android:text="Моя страница" />
     </com.google.android.material.tabs.TabLayout>
 
+    <LinearLayout
+        android:id="@+id/elements_control_footer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/current_tab_body"
+        app:layout_constraintStart_toStartOf="@+id/current_tab_body"
+        app:layout_constraintTop_toBottomOf="@+id/main_tabs">
+
+        <Button
+            android:id="@+id/elements_control_footer_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:outlineProvider="none"
+            android:text="Отмена"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/elements_control_footer_save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:outlineProvider="none"
+            android:text="Сохранить"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
