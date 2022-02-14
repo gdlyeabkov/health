@@ -561,6 +561,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             parsedCurrentWalkData += 1;
             boolean isCanAddWalk = parsedCurrentWalkData < goodWalkIndicatorValue;
             if (isCanAddWalk) {
+                MainActivity.gateway.createNotification(parsedCurrentWalkData, 2);
                 String rawWalkData = String.valueOf(parsedCurrentWalkData);
                 mainPageWalkBlockDataAsideValue.setText(rawWalkData);
                 int walkProgress = parsedCurrentWalkData / (goodWalkIndicatorValue / maxPercents);

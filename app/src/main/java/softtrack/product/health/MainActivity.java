@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     public LinearLayout mainPageBodyCompositionBlock;
     public LinearLayout mainPageWaterBlock;
     public static MainActivity gateway;
+    public NotificationCompat.Builder builder;
+    public int notificationId = 0;
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -186,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 db.update("controllers", contentValues, "_id = 7", new String[] {  });
             }
         });
-        createNotification();
+        createNotification(0, 1);
     }
 
     public void initializeTabs() {
@@ -612,18 +614,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void createNotification() {
+    public void createNotification(int walkInfo, int step) {
+        String rawWalkInfo = Integer.toString(walkInfo);
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "CONTACTIO_CHANNEL_ID")
+        if (step == 1) {
+            notificationId = (int) ((new Date(System.currentTimeMillis()).getTime() / 1000L) % Integer.MAX_VALUE);
+            builder = new NotificationCompat.Builder(getApplicationContext(), "CONTACTIO_CHANNEL_ID")
                 .setSmallIcon(R.drawable.walk_logo)
-                .setContentTitle("Шагов")
-                .setContentText("Шагов")
+                .setContentTitle(rawWalkInfo + " шагов")
+                .setContentText("Цель: 6000 шага (-ов).")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
-
+        } else {
+            builder.setContentTitle(rawWalkInfo + " шагов");
+        }
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -631,7 +638,7 @@ public class MainActivity extends AppCompatActivity {
             channel.setDescription("transfer messages between sockets");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-            notificationManager.notify((int) ((new Date(System.currentTimeMillis()).getTime() / 1000L) % Integer.MAX_VALUE) /* ID of notification */, builder.build());
+            notificationManager.notify(notificationId /* ID of notification */, builder.build());
         }
     }
 
