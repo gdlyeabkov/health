@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -42,6 +44,8 @@ public class EditMyPageActivity extends AppCompatActivity {
     public Button editMyPageActivitityFooterSaveBtn;
     public EditText editMyPageActivitityBodyNicknameField;
     public String currentGender = "";
+    public String settedGrowth = "0.0";
+    public String settedWeight = "0.0";
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -186,7 +190,49 @@ public class EditMyPageActivity extends AppCompatActivity {
                 builder.setPositiveButton("Готово", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        LinearLayout growthSelectorActivityRealPart = dialogView.findViewById(R.id.growth_selector_activity_real_part);
+                        ScrollView growthSelectorActivityRealPartScroll = dialogView.findViewById(R.id.growth_selector_activity_real_part_scroll);
+                        LinearLayout growthSelectorActivityImaginaryPart = dialogView.findViewById(R.id.growth_selector_activity_imaginary_part);
+                        ScrollView growthSelectorActivityImaginaryPartScroll = dialogView.findViewById(R.id.growth_selector_activity_imaginary_part_scroll);
+                        int realScrollY = growthSelectorActivityRealPartScroll.getScrollY();
+                        int imaginaryScrollY = growthSelectorActivityImaginaryPartScroll.getScrollY();
+                        Log.d("debug", "Vertical offset: " + Integer.toString(realScrollY) + ", " + Integer.toString(imaginaryScrollY));
+                        int destinationBetweenScrollItems = 105;
+                        String settedImaginaryGrowth = "0";
+                        String settedRealGrowth = "0";
+                        int selectedLabelIndex = ((int) (Math.floor(realScrollY / destinationBetweenScrollItems)));
+                        int hoursColumnLabelsCount = growthSelectorActivityImaginaryPart.getChildCount();
+                        boolean isChildrenAccess = selectedLabelIndex < hoursColumnLabelsCount;
+                        if (isChildrenAccess) {
+                            for (int hoursLabelIndex = 1; hoursLabelIndex < hoursColumnLabelsCount; hoursLabelIndex++) {
+                                TextView currentLabel = ((TextView)(growthSelectorActivityImaginaryPart.getChildAt(hoursLabelIndex)));
+                                Typeface labelTypeface = Typeface.DEFAULT;
+                                currentLabel.setTypeface(labelTypeface, Typeface.NORMAL);
+                            }
+                            TextView selectedLabel = ((TextView)(growthSelectorActivityImaginaryPart.getChildAt(selectedLabelIndex)));
+                            Typeface labelTypeface = selectedLabel.getTypeface();
+                            selectedLabel.setTypeface(labelTypeface, Typeface.BOLD);
+                            CharSequence rawSelectLabelContent = selectedLabel.getText();
+                            String selectLabelContent = rawSelectLabelContent.toString();
+                            settedRealGrowth = selectLabelContent;
+                        }
+                        selectedLabelIndex = ((int) (Math.floor(imaginaryScrollY / destinationBetweenScrollItems)));
+                        hoursColumnLabelsCount = growthSelectorActivityImaginaryPart.getChildCount();
+                        isChildrenAccess = selectedLabelIndex < hoursColumnLabelsCount;
+                        if (isChildrenAccess) {
+                            for (int hoursLabelIndex = 1; hoursLabelIndex < hoursColumnLabelsCount; hoursLabelIndex++) {
+                                TextView currentLabel = ((TextView)(growthSelectorActivityImaginaryPart.getChildAt(hoursLabelIndex)));
+                                Typeface labelTypeface = Typeface.DEFAULT;
+                                currentLabel.setTypeface(labelTypeface, Typeface.NORMAL);
+                            }
+                            TextView selectedLabel = ((TextView)(growthSelectorActivityImaginaryPart.getChildAt(selectedLabelIndex)));
+                            Typeface labelTypeface = selectedLabel.getTypeface();
+                            selectedLabel.setTypeface(labelTypeface, Typeface.BOLD);
+                            CharSequence rawSelectLabelContent = selectedLabel.getText();
+                            String selectLabelContent = rawSelectLabelContent.toString();
+                            settedImaginaryGrowth = selectLabelContent;
+                        }
+                        settedGrowth = settedRealGrowth + "." + settedImaginaryGrowth;
                     }
                 });
                 builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -211,18 +257,74 @@ public class EditMyPageActivity extends AppCompatActivity {
                 builder.setPositiveButton("Готово", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        LinearLayout weightSelectorActivityRealPart = dialogView.findViewById(R.id.weight_selector_activity_real_part);
+                        ScrollView weightSelectorActivityRealPartScroll = dialogView.findViewById(R.id.weight_selector_activity_real_part_scroll);
+                        LinearLayout weightSelectorActivityImaginaryPart = dialogView.findViewById(R.id.weight_selector_activity_imaginary_part);
+                        ScrollView weightSelectorActivityImaginaryPartScroll = dialogView.findViewById(R.id.weight_selector_activity_imaginary_part_scroll);
+                        int realScrollY = weightSelectorActivityRealPartScroll.getScrollY();
+                        int imaginaryScrollY = weightSelectorActivityImaginaryPartScroll.getScrollY();
+                        Log.d("debug", "Vertical offset: " + Integer.toString(realScrollY) + ", " + Integer.toString(imaginaryScrollY));
+                        int destinationBetweenScrollItems = 105;
+                        String settedImaginaryWeight = "0";
+                        String settedRealWeight = "0";
+                        int selectedLabelIndex = ((int) (Math.floor(realScrollY / destinationBetweenScrollItems)));
+                        int hoursColumnLabelsCount = weightSelectorActivityImaginaryPart.getChildCount();
+                        boolean isChildrenAccess = selectedLabelIndex < hoursColumnLabelsCount;
+                        if (isChildrenAccess) {
+                            for (int hoursLabelIndex = 1; hoursLabelIndex < hoursColumnLabelsCount; hoursLabelIndex++) {
+                                TextView currentLabel = ((TextView)(weightSelectorActivityImaginaryPart.getChildAt(hoursLabelIndex)));
+                                Typeface labelTypeface = Typeface.DEFAULT;
+                                currentLabel.setTypeface(labelTypeface, Typeface.NORMAL);
+                            }
+                            TextView selectedLabel = ((TextView)(weightSelectorActivityImaginaryPart.getChildAt(selectedLabelIndex)));
+                            Typeface labelTypeface = selectedLabel.getTypeface();
+                            selectedLabel.setTypeface(labelTypeface, Typeface.BOLD);
+                            CharSequence rawSelectLabelContent = selectedLabel.getText();
+                            String selectLabelContent = rawSelectLabelContent.toString();
+                            settedRealWeight = selectLabelContent;
+                        }
+                        selectedLabelIndex = ((int) (Math.floor(imaginaryScrollY / destinationBetweenScrollItems)));
+                        hoursColumnLabelsCount = weightSelectorActivityImaginaryPart.getChildCount();
+                        isChildrenAccess = selectedLabelIndex < hoursColumnLabelsCount;
+                        if (isChildrenAccess) {
+                            for (int hoursLabelIndex = 1; hoursLabelIndex < hoursColumnLabelsCount; hoursLabelIndex++) {
+                                TextView currentLabel = ((TextView)(weightSelectorActivityImaginaryPart.getChildAt(hoursLabelIndex)));
+                                Typeface labelTypeface = Typeface.DEFAULT;
+                                currentLabel.setTypeface(labelTypeface, Typeface.NORMAL);
+                            }
+                            TextView selectedLabel = ((TextView)(weightSelectorActivityImaginaryPart.getChildAt(selectedLabelIndex)));
+                            Typeface labelTypeface = selectedLabel.getTypeface();
+                            selectedLabel.setTypeface(labelTypeface, Typeface.BOLD);
+                            CharSequence rawSelectLabelContent = selectedLabel.getText();
+                            String selectLabelContent = rawSelectLabelContent.toString();
+                            settedImaginaryWeight = selectLabelContent;
+                        }
+                        settedWeight = settedRealWeight + "." + settedImaginaryWeight;
                     }
                 });
                 builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        ScrollView weightSelectorActivityRealPartScroll = dialogView.findViewById(R.id.weight_selector_activity_real_part_scroll);
+                        ScrollView weightSelectorActivityImaginaryPartScroll = dialogView.findViewById(R.id.weight_selector_activity_imaginary_part_scroll);
+                        int destinationBetweenScrollItems = 105;
+                        int realScrollY = Integer.valueOf(settedGrowth) * destinationBetweenScrollItems;
+                        int imaginaryScrollY = Integer.valueOf(settedWeight) * destinationBetweenScrollItems;
+                        weightSelectorActivityRealPartScroll.scrollTo(0, realScrollY);
+                        weightSelectorActivityImaginaryPartScroll.scrollTo(0, imaginaryScrollY);
                     }
                 });
                 AlertDialog alert = builder.create();
                 alert.setTitle("Вес");
                 alert.show();
+                alert.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        // здесь
+
+                    }
+                });
             }
         });
         editMyPageActivitityFooterSaveBtn.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +336,8 @@ public class EditMyPageActivity extends AppCompatActivity {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("name", name);
                 contentValues.put("gender", currentGender);
+                contentValues.put("growth", settedGrowth);
+                contentValues.put("weight", settedWeight);
                 db.update("indicators", contentValues, "_id = 1", new String[] {  });
                 Intent intent = new Intent(EditMyPageActivity.this, MainActivity.class);
                 EditMyPageActivity.this.startActivity(intent);
@@ -245,6 +349,8 @@ public class EditMyPageActivity extends AppCompatActivity {
         name = indicatorsCursor.getString(9);
         editMyPageActivitityBodyNicknameField.setText(name);
         currentGender = indicatorsCursor.getString(10);
+        settedGrowth = indicatorsCursor.getString(11);
+        settedWeight = indicatorsCursor.getString(12);
     }
 
     private void openGallery() {

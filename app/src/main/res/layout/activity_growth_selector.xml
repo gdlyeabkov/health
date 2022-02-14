@@ -4,10 +4,12 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/growth_selector_activity_real_part_scroll"
         android:layout_width="100dp"
         android:layout_height="100dp">
 
         <LinearLayout
+            android:id="@+id/growth_selector_activity_real_part"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -104,10 +106,12 @@
         android:textSize="24sp" />
 
     <ScrollView
+        android:id="@+id/growth_selector_activity_imaginary_part_scroll"
         android:layout_width="100dp"
         android:layout_height="100dp">
 
         <LinearLayout
+            android:id="@+id/growth_selector_activity_imaginary_part"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
