@@ -91,6 +91,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     public ImageButton mainPageSleepBlockController;
     public ImageButton mainPageBodyCompositionBlockController;
     public ImageButton mainPageWaterBlockController;
+    public TextView mainPageExerciseBlockHeaderLogs;
 
     public MainPageFragment() {
 
@@ -159,6 +160,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageSleepBlockController = parentActivity.findViewById(R.id.main_page_sleep_block_controller);
         mainPageBodyCompositionBlockController = parentActivity.findViewById(R.id.main_page_body_composition_block_controller);
         mainPageWaterBlockController = parentActivity.findViewById(R.id.main_page_water_block_controller);
+        mainPageExerciseBlockHeaderLogs = parentActivity.findViewById(R.id.main_page_exercise_block_header_logs);
         mainPageWaterBlockDrinkGlassesDecreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -376,7 +378,17 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             }
         }
         mainPageActiveBlockAsideFooterWalkLabel.setText(rawWalk);
+        mainPageExerciseBlockExercisesList = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_list);
         mainPageExerciseBlockExercisesList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopTimer();
+                Intent intent = new Intent(parentActivity, ExercisesListActivity.class);
+                parentActivity.startActivity(intent);
+            }
+        });
+
+        mainPageExerciseBlockHeaderLogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stopTimer();

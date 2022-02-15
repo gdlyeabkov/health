@@ -353,6 +353,12 @@
                 android:text="Значков нет"
                 android:textAlignment="center"
                 android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/my_page_activity_body_footer_items"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:orientation="horizontal"></LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -155,6 +155,7 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/record_exercise_started_activity_body_table_second_row"
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
 
@@ -204,26 +205,28 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/record_exercise_started_activity_body_table_third_row"
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
 
                 <LinearLayout
+                    android:id="@+id/record_exercise_started_activity_body_callories"
                     android:layout_width="205dp"
                     android:layout_height="195dp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView170"
+                        android:id="@+id/record_exercise_started_activity_body_callories_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Калории"
                         android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView169"
+                        android:id="@+id/record_exercise_started_activity_body_callories_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="187 ккал"
+                        android:text="187"
                         android:textAlignment="center"
                         android:textSize="20sp"
                         android:textStyle="bold" />
