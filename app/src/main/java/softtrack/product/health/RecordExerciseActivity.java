@@ -32,8 +32,7 @@ public class RecordExerciseActivity extends AppCompatActivity {
     int LOCATION_REFRESH_TIME = 15000; // 15 seconds to update
     int LOCATION_REFRESH_DISTANCE = 500; // 500 meters to update
     private LocationListener mLocationListener;
-    @SuppressLint("WrongConstant")
-    public SQLiteDatabase db;
+    @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,9 +103,9 @@ public class RecordExerciseActivity extends AppCompatActivity {
                 contentValues.put("exercise_type", exerciseType);
                 db.update("indicators", contentValues, "_id = 1", new String[] {  });
 
-//                Intent intent = new Intent(RecordExerciseActivity.this, RecordStartedExerciseActivity.class);
-//                intent.putExtra("type", exerciseType);
-//                RecordExerciseActivity.this.startActivity(intent);
+                Intent intent = new Intent(RecordExerciseActivity.this, RecordStartedExerciseActivity.class);
+                intent.putExtra("type", exerciseType);
+                RecordExerciseActivity.this.startActivity(intent);
             }
         });
     }

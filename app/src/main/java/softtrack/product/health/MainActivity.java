@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 hideControllers();
-                // здесь
                 displayHealthItems();
             }
         });
@@ -259,7 +258,14 @@ public class MainActivity extends AppCompatActivity {
                             contextMenu.add(Menu.NONE, 303, Menu.NONE, "Для вас");
                             contextMenu.add(Menu.NONE, 304, Menu.NONE, "События");
                             contextMenu.add(Menu.NONE, 305, Menu.NONE, "Уведомления");
-                            contextMenu.add(Menu.NONE, 306, Menu.NONE, "Настр.");
+                            MenuItem settingsMenuItem = contextMenu.add(Menu.NONE, 306, Menu.NONE, "Настр.");
+                            settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    goToSettings();
+                                    return false;
+                                }
+                            });
                         }
                     });
                 } else if (isMyPageTab) {
@@ -269,7 +275,14 @@ public class MainActivity extends AppCompatActivity {
                             contextMenu.add(Menu.NONE, 401, Menu.NONE, "Для вас");
                             contextMenu.add(Menu.NONE, 402, Menu.NONE, "События");
                             contextMenu.add(Menu.NONE, 403, Menu.NONE, "Уведомления");
-                            contextMenu.add(Menu.NONE, 404, Menu.NONE, "Настр.");
+                            MenuItem settingsMenuItem = contextMenu.add(Menu.NONE, 404, Menu.NONE, "Настр.");
+                            settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                    goToSettings();
+                                    return false;
+                                }
+                            });
                         }
                     });
                 }
@@ -308,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("CREATE TABLE IF NOT EXISTS indicators (_id INTEGER PRIMARY KEY AUTOINCREMENT, water INTEGER, walk INTEGER, food INTEGER, is_exercise_enabled BOOLEAN, exercise_start_time TEXT, exercise_type TEXT, exercise_duration TEXT, photo TEXT, name TEXT, gender TEXT, growth REAL, weight REAL, birthday TEXT, level TEXT);");
         db.execSQL("CREATE TABLE IF NOT EXISTS exercises (_id INTEGER PRIMARY KEY AUTOINCREMENT, is_activated BOOLEAN, name TEXT, logo INTEGER, is_favorite BOOLEAN);");
         db.execSQL("CREATE TABLE IF NOT EXISTS controllers (_id INTEGER PRIMARY KEY AUTOINCREMENT, is_activated BOOLEAN, name TEXT);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS measures (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value TEXT);");
         Cursor indicatorsCursor = db.rawQuery("Select * from indicators", null);
         long countIndicators = DatabaseUtils.queryNumEntries(db, "indicators");
         boolean isPreInstall = countIndicators <= 0;
@@ -336,6 +350,15 @@ public class MainActivity extends AppCompatActivity {
             db.execSQL("INSERT INTO \"controllers\"(is_activated, name) VALUES (true, \"sleep\");");
             db.execSQL("INSERT INTO \"controllers\"(is_activated, name) VALUES (true, \"body\");");
             db.execSQL("INSERT INTO \"controllers\"(is_activated, name) VALUES (true, \"water\");");
+
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"Рост\", \"см\");");
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"Вес\", \"кг\");");
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"Температура\", \"℃\");");
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"Расстояние\", \"км\");");
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"Сахар в крови\", \"мг/дл\");");
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"Давление\", \"мм рт. ст.\");");
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"HbA1c\", \"%\");");
+            db.execSQL("INSERT INTO \"measures\"(name, value) VALUES (\"Вода\", \"мл\");");
 
         }
         db.execSQL("CREATE TABLE IF NOT EXISTS body_records (_id INTEGER PRIMARY KEY AUTOINCREMENT, marks TEXT, musculature INTEGER, fat INTEGER, weight REAL, date TEXT);");
@@ -421,8 +444,7 @@ public class MainActivity extends AppCompatActivity {
                 settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                        MainActivity.this.startActivity(intent);
+                        goToSettings();
                         return false;
                     }
                 });
@@ -642,4 +664,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void goToSettings() {
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        MainActivity.this.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isSelectionMode) {
+            hideControllers();
+            displayHealthItems();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

@@ -669,13 +669,20 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             int rawIsHealthItemActivated = controllersCursor.getInt(1);
             isHealthItemActivated = rawIsHealthItemActivated == 1;
             controllersValues.add(isHealthItemActivated);
-            boolean isActiveItem = healthItemName == "active";
-            boolean isWalkItem = healthItemName == "walk";
-            boolean isExerciseItem = healthItemName == "exercise";
-            boolean isFoodItem = healthItemName == "food";
-            boolean isSleepItem = healthItemName == "sleep";
-            boolean isBodyItem = healthItemName == "body";
-            boolean isWaterItem = healthItemName == "water";
+//            boolean isActiveItem = healthItemName == "active";
+//            boolean isWalkItem = healthItemName == "walk";
+//            boolean isExerciseItem = healthItemName == "exercise";
+//            boolean isFoodItem = healthItemName == "food";
+//            boolean isSleepItem = healthItemName == "sleep";
+//            boolean isBodyItem = healthItemName == "body";
+//            boolean isWaterItem = healthItemName == "water";
+            boolean isActiveItem = healthItemName.contains("active");
+            boolean isWalkItem = healthItemName.contains("walk");
+            boolean isExerciseItem = healthItemName.contains("exercise");
+            boolean isFoodItem = healthItemName.contains("food");
+            boolean isSleepItem = healthItemName.contains("sleep");
+            boolean isBodyItem = healthItemName.contains("body");
+            boolean isWaterItem = healthItemName.contains("water");
             if (isActiveItem) {
                 if (isHealthItemActivated) {
                     mainPageWalkBlockController.setContentDescription("minus");

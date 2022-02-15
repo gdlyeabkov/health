@@ -1,7 +1,12 @@
 package softtrack.product.health;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +38,7 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
     public LinearLayout settingsGeneralMeasureActivityBodyHba1c;
     public LinearLayout settingsGeneralMeasureActivityBodyWater;
     public ImageView settingsGeneralMeasureActivityHeaderBackBtn;
+    @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
         initialize();
     }
 
+    @SuppressLint("WrongConstant")
     public void initialize() {
         settingsGeneralMeasureActivityBodyGrowthMeasure = findViewById(R.id.settings_general_measure_activity_body_growth_measure);
         settingsGeneralMeasureActivityBodyWeightMeasure = findViewById(R.id.settings_general_measure_activity_body_weight_measure);
@@ -58,6 +65,7 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
         settingsGeneralMeasureActivityBodyPressure = findViewById(R.id.settings_general_measure_activity_body_pressure);
         settingsGeneralMeasureActivityBodyHba1c = findViewById(R.id.settings_general_measure_activity_body_hba1c);
         settingsGeneralMeasureActivityBodyWater = findViewById(R.id.settings_general_measure_activity_body_water);
+        db = openOrCreateDatabase("health-database.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
         settingsGeneralMeasureActivityBodyGrowth.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
@@ -65,7 +73,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyGrowthCentimetersMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyGrowthMeasure.setText("см");
+                        String value = "см";
+                        settingsGeneralMeasureActivityBodyGrowthMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 1", new String[] {  });
                         return false;
                     }
                 });
@@ -73,7 +85,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyGrowthInchsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyGrowthMeasure.setText("дюйм");
+                        String value = "фт., дюйм";
+                        settingsGeneralMeasureActivityBodyGrowthMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 1", new String[] {  });
                         return false;
                     }
                 });
@@ -86,7 +102,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyWeightKilogramsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyWeightMeasure.setText("кг");
+                        String value = "кг";
+                        settingsGeneralMeasureActivityBodyWeightMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 2", new String[] {  });
                         return false;
                     }
                 });
@@ -94,7 +114,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyWeightPoundsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyWeightMeasure.setText("фунт");
+                        String value = "фунт";
+                        settingsGeneralMeasureActivityBodyWeightMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 2", new String[] {  });
                         return false;
                     }
                 });
@@ -107,7 +131,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyTempCMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyTempMeasure.setText("℃");
+                        String value = "℃";
+                        settingsGeneralMeasureActivityBodyTempMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 3", new String[] {  });
                         return false;
                     }
                 });
@@ -115,7 +143,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyTempFMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyTempMeasure.setText("℉");
+                        String value = "℉";
+                        settingsGeneralMeasureActivityBodyTempMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 3", new String[] {  });
                         return false;
                     }
                 });
@@ -128,7 +160,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyDistanseKmsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyDistanseMeasure.setText("км");
+                        String value = "км";
+                        settingsGeneralMeasureActivityBodyDistanseMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 4", new String[] {  });
                         return false;
                     }
                 });
@@ -136,7 +172,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyDistanseFtsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyWeightMeasure.setText("фт");
+                        String value = "ми/фт";
+                        settingsGeneralMeasureActivityBodyDistanseMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 4", new String[] {  });
                         return false;
                     }
                 });
@@ -149,7 +189,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodySugarMgMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodySugarMeasure.setText("мг");
+                        String value = "мг/дл";
+                        settingsGeneralMeasureActivityBodySugarMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 5", new String[] {  });
                         return false;
                     }
                 });
@@ -157,7 +201,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodySugarMoleMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodySugarMeasure.setText("ммоль/л");
+                        String value = "ммоль/л";
+                        settingsGeneralMeasureActivityBodySugarMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 5", new String[] {  });
                         return false;
                     }
                 });
@@ -170,7 +218,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyPressureMlsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyPressureMeasure.setText("кг");
+                        String value = "мм рт. ст.";
+                        settingsGeneralMeasureActivityBodyPressureMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 6", new String[] {  });
                         return false;
                     }
                 });
@@ -178,7 +230,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyPressurePascalsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyPressureMeasure.setText("фунт");
+                        String value = "кПа";
+                        settingsGeneralMeasureActivityBodyPressureMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 6", new String[] {  });
                         return false;
                     }
                 });
@@ -191,7 +247,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyHba1cPercentsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyHba1cMeasure.setText("%");
+                        String value = "%";
+                        settingsGeneralMeasureActivityBodyHba1cMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 7", new String[] {  });
                         return false;
                     }
                 });
@@ -199,7 +259,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyHba1cMoleMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyWeightMeasure.setText("моль");
+                        String value = "ммоль/моль";
+                        settingsGeneralMeasureActivityBodyHba1cMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 7", new String[] {  });
                         return false;
                     }
                 });
@@ -212,7 +276,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyWaterMlsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyWaterMeasure.setText("мл");
+                        String value = "мл";
+                        settingsGeneralMeasureActivityBodyWaterMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 8", new String[] {  });
                         return false;
                     }
                 });
@@ -220,7 +288,11 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 settingsGeneralMeasureActivityBodyWaterOunceMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        settingsGeneralMeasureActivityBodyWaterMeasure.setText("унц.");
+                        String value = "жидк. унц.";
+                        settingsGeneralMeasureActivityBodyWaterMeasure.setText(value);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("value", value);
+                        db.update("measures", contentValues, "_id = 8", new String[] {  });
                         return false;
                     }
                 });
@@ -234,6 +306,33 @@ public class SettingsGeneralMeasureActivity extends AppCompatActivity {
                 SettingsGeneralMeasureActivity.this.startActivity(intent);
             }
         });
+        Cursor measuresCursor = db.rawQuery("Select * from measures", null);
+        measuresCursor.moveToFirst();
+        String value = "";
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodyGrowthMeasure.setText(value);
+        measuresCursor.moveToNext();
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodyWeightMeasure.setText(value);
+        measuresCursor.moveToNext();
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodyTempMeasure.setText(value);
+        measuresCursor.moveToNext();
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodyDistanseMeasure.setText(value);
+        measuresCursor.moveToNext();
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodySugarMeasure.setText(value);
+        measuresCursor.moveToNext();
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodyPressureMeasure.setText(value);
+        measuresCursor.moveToNext();
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodyHba1cMeasure.setText(value);
+        measuresCursor.moveToNext();
+        value = measuresCursor.getString(2);
+        settingsGeneralMeasureActivityBodyWaterMeasure.setText(value);
+
     }
 
 }

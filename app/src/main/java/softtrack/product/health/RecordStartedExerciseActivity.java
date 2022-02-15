@@ -228,7 +228,7 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
         boolean isGetBigDurationAward = bigDurationCounter == countExerciseRecords;
         if (isGetBigDurationAward) {
             String awardName = "Самая большая длительность";
-            String awardDesc = duration + "\n" + dateTime;
+            String awardDesc = duration + " " + dateTime;
             db.execSQL("INSERT INTO \"awards\"(name, description, type) VALUES (\"" + awardName + "\", \"" + awardDesc + "\", \"" + exerciseType + "\");");
         }
     }

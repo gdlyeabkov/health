@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ public class AwardsCategoryActivity extends AppCompatActivity {
     public TextView awardsCategoryActivityHeaderLabel;
     public ImageButton awardsCategoryActivityHeaderBackBtn;
     public LinearLayout awardsCategoryActivityBody;
+    public String awardsCategory = "";
     @SuppressLint("WrongConstant") public SQLiteDatabase db;
 
     @Override
@@ -36,7 +40,6 @@ public class AwardsCategoryActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         Bundle extras = myIntent.getExtras();
         boolean isExtrasExists = extras != null;
-        String awardsCategory = "";
         if (isExtrasExists) {
             awardsCategory = extras.getString("category");
             awardsCategoryActivityHeaderLabel.setText(awardsCategory);
@@ -48,21 +51,61 @@ public class AwardsCategoryActivity extends AppCompatActivity {
                 AwardsCategoryActivity.this.startActivity(intent);
             }
         });
-        boolean isExercisesAwards = awardsCategory == "Упражнение";
-        // isExercisesAwards = false;
+        Log.d("debug", "категория " + awardsCategory);
+        boolean isExercisesAwards = awardsCategory.contains("Упражнение");
         if (isExercisesAwards) {
-            Cursor foodsCursor = db.rawQuery("Select * from awards where type=\"Велоспорт\" OR type=\"Бег\" OR type=\"Ходьба\"", null);
-            foodsCursor.moveToFirst();
-            while (true) {
-                String awardName = foodsCursor.getString(1);
-                LinearLayout award = new LinearLayout(AwardsCategoryActivity.this);
-                TextView awardNameItem = new TextView(AwardsCategoryActivity.this);
-                awardNameItem.setText(awardName);
-                award.addView(awardNameItem);
-                awardsCategoryActivityBody.addView(award);
-                boolean isBreak = foodsCursor.moveToNext();
-                if (!isBreak) {
-                    break;
+            Cursor foodsCursor = db.rawQuery("Select * from awards where type=\"Велоспорт\" OR type=\"Бег\" OR type=\"Ходьба\" OR type=\"Поход\" OR type=\"Плавание\" OR type=\"Йога\"", null);
+            boolean isBigDurationAwardsExists = foodsCursor.getCount() >= 1;
+            if (isBigDurationAwardsExists) {
+                foodsCursor.moveToFirst();
+                while (true) {
+                    String awardName = foodsCursor.getString(1);
+                    String awardRecord = foodsCursor.getString(2);
+                    String[] durationParts = awardRecord.split(" ")[0].split(":");
+                    String hours = durationParts[0];
+                    String minutes = durationParts[1];
+                    String seconds = durationParts[2];
+                    int parsedHours = Integer.valueOf(hours);
+                    int parsedMinutes = Integer.valueOf(minutes);
+                    int parsedSeconds = Integer.valueOf(seconds);
+                    int duration = parsedHours * 60 + parsedMinutes;
+                    String rawDuration = String.valueOf(duration) + " мин";
+                    String awardType = foodsCursor.getString(3);
+                    Log.d("debug", awardName);
+                    LinearLayout award = new LinearLayout(AwardsCategoryActivity.this);
+                    award.setOrientation(LinearLayout.VERTICAL);
+                    award.setLayoutParams(new LinearLayout.LayoutParams(500,450));
+                    ImageView awardImgItem = new ImageView(AwardsCategoryActivity.this);
+                    awardImgItem.setImageResource(R.drawable.award_logo);
+                    awardImgItem.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 250));
+                    award.addView(awardImgItem);
+                    TextView awardNameItem = new TextView(AwardsCategoryActivity.this);
+                    awardNameItem.setText(awardName);
+                    awardNameItem.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    award.addView(awardNameItem);
+                    awardsCategoryActivityBody.addView(award);
+                    award.setContentDescription(awardType + "@" + awardName + "@" + rawDuration);
+                    award.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            CharSequence rawAwardData = view.getContentDescription();
+                            Intent intent = new Intent(AwardsCategoryActivity.this, AwardActivity.class);
+                            String awardData = rawAwardData.toString();
+                            String[] awardDataItems = awardData.split("@");
+                            String awardType = awardDataItems[0];
+                            String awardName = awardDataItems[1];
+                            String awardRecord = awardDataItems[2];
+                            intent.putExtra("category", awardsCategory);
+                            intent.putExtra("type", awardType);
+                            intent.putExtra("name", awardName);
+                            intent.putExtra("record", awardRecord);
+                            AwardsCategoryActivity.this.startActivity(intent);
+                        }
+                    });
+                    boolean isBreak = foodsCursor.moveToNext();
+                    if (!isBreak) {
+                        break;
+                    }
                 }
             }
         }

@@ -42,17 +42,19 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/award_activity_header_share_btn_wrap"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton26"
+                android:id="@+id/award_activity_header_share_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:scaleType="fitEnd"
-                app:srcCompat="@drawable/share" />
+                app:srcCompat="@drawable/share"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
     </LinearLayout>
@@ -63,7 +65,7 @@
         android:orientation="horizontal"></LinearLayout>
 
     <TextView
-        android:id="@+id/textView401"
+        android:id="@+id/award_activity_type_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Велоспорт"
@@ -72,7 +74,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textView403"
+        android:id="@+id/award_activity_award_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Самая большая\nдлительность"
@@ -85,7 +87,7 @@
         app:srcCompat="@drawable/award_logo" />
 
     <TextView
-        android:id="@+id/textView404"
+        android:id="@+id/award_activity_award_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="312 мин"
