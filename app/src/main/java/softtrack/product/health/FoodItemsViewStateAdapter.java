@@ -27,7 +27,6 @@ public class FoodItemsViewStateAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        // Hardcoded, use lists
         return 3;
     }
 }

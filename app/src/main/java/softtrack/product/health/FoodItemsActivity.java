@@ -222,7 +222,6 @@ public class FoodItemsActivity extends AppCompatActivity {
             foodItemsActivityFoodAside.addView(foodItemsActivityFoodAsideLabel);
             foodItemsActivityFood.addView(foodItemsActivityFoodAside);
             CheckBox foodItemsActivityFoodSelector = new CheckBox(FoodItemsActivity.this);
-//            foodItemsActivityFoodSelector.setContentDescription(foodCallories);
             foodItemsActivityFoodSelector.setContentDescription(String.valueOf(foodsCallories.size()));
             foodItemsActivityFoodSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

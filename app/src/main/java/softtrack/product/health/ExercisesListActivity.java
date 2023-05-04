@@ -81,7 +81,6 @@ public class ExercisesListActivity extends AppCompatActivity {
                         contentValues.put("is_activated", isActivated);
                         db.update("exercises", contentValues, "_id = ?", new String[] { Integer.toString(id) });
                     }
-                    //addExerciseActivityBodyItemSelectorsItem.setVisibility(View.GONE);
                     drawExercises();
                 }
                 exercisesListActivityFooter.setVisibility(View.GONE);
@@ -178,7 +177,6 @@ public class ExercisesListActivity extends AppCompatActivity {
                 exercisesListActivityBodyItemAsideLabel.setLayoutParams(exercisesListActivityBodyItemAsideLabelLayoutParams);
                 exercisesListActivityBodyItemAside.addView(exercisesListActivityBodyItemAsideLabel);
                 exercisesListActivityBodyItem.addView(exercisesListActivityBodyItemAside);
-                // exercisesListActivityBodyItem.addView();
                 ImageButton exercisesListActivityBodyItemFavoriteBtn = new ImageButton(ExercisesListActivity.this);
                 exercisesListActivityBodyFavoriteBtns.add(exercisesListActivityBodyItemFavoriteBtn);
                 if (isFavorite) {

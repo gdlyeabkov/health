@@ -159,7 +159,6 @@ public class EditFoodItemActivity extends AppCompatActivity {
             editFoodItemActivitySugarLabel.setText(sugarMsg);
             String rawfoodProtein = String.valueOf(foodProtein);
             String proteinMsg = "Протеин " + rawfoodProtein + " г";
-            // proteinMsg = "";
             editFoodItemActivityProteinLabel.setText(proteinMsg);
             String aMsg = "Витамин A " + foodA + " мкг";
             editFoodItemActivityALabel.setText(aMsg);
@@ -183,7 +182,6 @@ public class EditFoodItemActivity extends AppCompatActivity {
         editFoodItemActivityFooterNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO добавить обновление food_items
                 ContentValues contentValues = new ContentValues();
                 int porionProgress = editFoodItemActivityBodyPortionsScaleTimeline.getProgress();
                 float correctPorionProgress = porionProgress / 10;
@@ -205,7 +203,6 @@ public class EditFoodItemActivity extends AppCompatActivity {
                 }
                 float neededProgress = seekBar.getProgress() / 10;
                 Log.d("debug", Float.toString(neededProgress));
-//                String rawPortion = String.valueOf(i);
                 String rawPortion = Float.toString(neededProgress);
                 editFoodItemActivityBodyPortionsScaleValue.setText(rawPortion);
             }

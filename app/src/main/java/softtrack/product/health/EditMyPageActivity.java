@@ -84,8 +84,6 @@ public class EditMyPageActivity extends AppCompatActivity {
         editMyPageActivitityBodyCameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(EditMyPageActivity.this, MainActivity.class);
-                EditMyPageActivity.this.startActivity(intent);*/
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(takePicture, 0);
             }
@@ -318,13 +316,6 @@ public class EditMyPageActivity extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.setTitle("Вес");
                 alert.show();
-                alert.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialogInterface) {
-                        // здесь
-
-                    }
-                });
             }
         });
         editMyPageActivitityFooterSaveBtn.setOnClickListener(new View.OnClickListener() {

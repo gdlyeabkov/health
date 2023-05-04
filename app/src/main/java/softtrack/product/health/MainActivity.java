@@ -660,7 +660,7 @@ public class MainActivity extends AppCompatActivity {
             channel.setDescription("transfer messages between sockets");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-            notificationManager.notify(notificationId /* ID of notification */, builder.build());
+            notificationManager.notify(notificationId, builder.build());
         }
     }
 

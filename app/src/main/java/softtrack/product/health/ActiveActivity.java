@@ -36,7 +36,6 @@ public class ActiveActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent share = new Intent(Intent.ACTION_MEDIA_SHARED);
-                // intent.setDataAndType(Uri.fromFile(fileInDir), Files.probeContentType(Paths.get(fileInDir.getPath())));
                 startActivity(Intent.createChooser(share,"Share image"));
             }
         });

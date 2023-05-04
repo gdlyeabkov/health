@@ -52,8 +52,6 @@ public class FoodItemsCustomMealPageFragment extends Fragment {
     @SuppressLint("WrongConstant")
     public void initialize() {
         parentActivity = (FoodItemsActivity) getActivity();
-        /*foodItemsActivityFoodsAddItem = parentActivity.findViewById(R.id.food_items_activity_foods_add_item);
-        foodItemsActivityFoods = parentActivity.findViewById(R.id.food_items_activity_foods);*/
         LayoutInflater inflater = parentActivity.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_food_items_custom_meal_page, null);
         foodItemsActivityFoodsAddItem = (LinearLayout) dialogView.findViewById(R.id.food_items_activity_foods_add_item);
@@ -63,7 +61,6 @@ public class FoodItemsCustomMealPageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(parentActivity, AddFoodItemActivity.class);
-                // intent.putExtra("foodType", parentActivity.gateway.foodType);
                 parentActivity.startActivity(intent);
             }
         });

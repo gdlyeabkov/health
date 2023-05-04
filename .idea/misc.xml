@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android_projects/Health/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_active.xml" value="0.1" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_add_exercise.xml" value="0.264" />
         <entry key="..\:/android_projects/Health/app/src/main/res/layout/activity_add_food_item.xml" value="0.20464135021097046" />

@@ -169,7 +169,6 @@ public class RecordWeightDataActivity extends AppCompatActivity {
                     selectedLabel.setTypeface(labelTypeface, Typeface.BOLD);
                     CharSequence rawSelectLabelContent = selectedLabel.getText();
                     String selectLabelContent = rawSelectLabelContent.toString();
-                    // float parsedSelectLabelContent = Float.parseFloat(selectLabelContent);
                     settedRealWeight = selectLabelContent;
                 }
             }
@@ -192,7 +191,6 @@ public class RecordWeightDataActivity extends AppCompatActivity {
                     selectedLabel.setTypeface(labelTypeface, Typeface.BOLD);
                     CharSequence rawSelectLabelContent = selectedLabel.getText();
                     String selectLabelContent = rawSelectLabelContent.toString();
-                    // float parsedSelectLabelContent = Float.parseFloat(selectLabelContent);
                     settedImaginaryWeight = selectLabelContent;
                 }
             }
@@ -210,11 +208,6 @@ public class RecordWeightDataActivity extends AppCompatActivity {
                         String rawDayOfMonth = String.valueOf(dayOfMonth);
                         String rawMonth = monthsLabels.get(monthOfYear);
                         Calendar calendar = Calendar.getInstance();
-                        /*calendar.set(
-                            year,
-                            monthOfYear,
-                            dayOfMonth
-                        );*/
                         calendar.set(
                             Calendar.YEAR,
                             year

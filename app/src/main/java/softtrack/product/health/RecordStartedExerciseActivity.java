@@ -62,7 +62,6 @@ public class RecordStartedExerciseActivity extends AppCompatActivity {
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(final Location location) {
-                //your code here
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 String rawLatitude = Double.toString(latitude);

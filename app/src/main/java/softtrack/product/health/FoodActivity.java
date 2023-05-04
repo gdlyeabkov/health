@@ -72,15 +72,10 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
         int countKCals = 0;
-//        Cursor foodRecordsCursor = db.rawQuery("Select * from food_records", null);
         Cursor foodRecordsCursor = db.rawQuery("Select * from indicators", null);
         foodRecordsCursor.moveToFirst();
-//        long countFoodRecords = DatabaseUtils.queryNumEntries(db, "food_records");
-//        for (long foodRecordsIndex = 0; foodRecordsIndex < countFoodRecords; foodRecordsIndex++) {
-            int foodRecordsCallories = foodRecordsCursor.getInt(3);
-            countKCals += foodRecordsCallories;
-//            foodRecordsCursor.moveToNext();
-//        }
+        int foodRecordsCallories = foodRecordsCursor.getInt(3);
+        countKCals += foodRecordsCallories;
         String rawCountKCals = Integer.toString(countKCals);
         String parsedCountKCals = rawCountKCals + " ккал";
         foodActivityBodyInfoLabel.setText(parsedCountKCals);
@@ -102,7 +97,6 @@ public class FoodActivity extends AppCompatActivity {
                     RadioButton selectedMeal = dialogView.findViewById(selectedMealId);
                     CharSequence rawSelectedMealContent = selectedMeal.getText();
                     String selectedMealContent = rawSelectedMealContent.toString();
-//                     db.execSQL("INSERT INTO \"food_records\"(type) VALUES (\"" + selectedMealContent + "\");");
                     Intent intent = new Intent(FoodActivity.this, FoodItemsActivity.class);
                     intent.putExtra("foodType", selectedMealContent);
                     FoodActivity.this.startActivity(intent);

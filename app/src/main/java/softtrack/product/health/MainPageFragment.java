@@ -132,7 +132,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
         mainPageExerciseBlockExercisesWalk = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_walk);
         mainPageExerciseBlockExercisesRun = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_run);
         mainPageExerciseBlockExercisesBicycle = parentActivity.findViewById(R.id.main_page_exercise_block_exercises_bicycle);
-        // mainPageBodyCompositionBlockWrapFooterWeight = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_weight_block);
         mainPageBodyCompositionBlockWrapFooterData = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_data);
         mainPageBodyCompositionBlockWrapFooter = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer);
         mainPageBodyCompositionBlockWrapFooterDataWeightLabel = parentActivity.findViewById(R.id.main_page_body_composition_block_wrap_footer_data_weight_label);
@@ -358,11 +357,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             String rawWeight = String.valueOf(weight);
             String rawFat = String.valueOf(fat);
             String rawMusculature = String.valueOf(musculature);
-            /*mainPageBodyCompositionBlockWrapFooterData.setVisibility(View.VISIBLE);
-            mainPageBodyCompositionBlockWrapFooter.setVisibility(View.GONE);
-            mainPageBodyCompositionBlockWrapFooterDataWeightLabel.setText(rawWeight);
-            mainPageBodyCompositionBlockWrapFooterDataFatLabel.setText(rawFat);
-            mainPageBodyCompositionBlockWrapFooterDataMusculatureLabel.setText(rawMusculature);*/
             mainPageBodyCompositionBlockWrapFooterWeightLabel.setText(rawWeight);
             boolean isHaveFat = fat >= 1;
             if (isHaveFat) {
@@ -432,7 +426,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
                 LinearLayout.LayoutParams logoLayoutParams = new LinearLayout.LayoutParams(225, 225);
                 logoLayoutParams.setMargins(125, 0, 0, 0);
                 logo.setLayoutParams(logoLayoutParams);
-                //int logoSource = exercisesCursor.getInt(3);
                 int logoSource = 0;
                 if (name == "Ходьба") {
                     logoSource = R.drawable.walk_logo;
@@ -463,7 +456,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             }
             exercisesCursor.moveToNext();
         }
-        // mainPageWalkBlockController.setContentDescription("minus");
         mainPageActiveBlockController.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -529,7 +521,7 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-        // проще сделать это в onSensorChanged
+        // проще обрабатывать данные сенсора в onSensorChanged чем здесь
     }
 
     @Override
@@ -560,7 +552,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
     }
 
     public void detectWalk(String sensorName, int offset) {
-        // Log.d("debug", "Сенсор по имени " + sensorName + " сейчас в значении " + String.valueOf(offset));
         boolean isDetectOffset = offset <= 3;
         boolean isMock = true;
         boolean isDetectedWalk = isDetectOffset || isMock;
@@ -654,7 +645,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
 
     public void toggleController(View view, int id) {
         ImageButton controller = parentActivity.findViewById(id);
-//        ImageButton controller = (ImageButton) view;
         CharSequence rawControllerData = controller.getContentDescription();
         String controllerData = rawControllerData.toString();
         boolean isRemovedController = controllerData == "minus";
@@ -681,13 +671,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             int rawIsHealthItemActivated = controllersCursor.getInt(1);
             isHealthItemActivated = rawIsHealthItemActivated == 1;
             controllersValues.add(isHealthItemActivated);
-//            boolean isActiveItem = healthItemName == "active";
-//            boolean isWalkItem = healthItemName == "walk";
-//            boolean isExerciseItem = healthItemName == "exercise";
-//            boolean isFoodItem = healthItemName == "food";
-//            boolean isSleepItem = healthItemName == "sleep";
-//            boolean isBodyItem = healthItemName == "body";
-//            boolean isWaterItem = healthItemName == "water";
             boolean isActiveItem = healthItemName.contains("active");
             boolean isWalkItem = healthItemName.contains("walk");
             boolean isExerciseItem = healthItemName.contains("exercise");
@@ -845,13 +828,6 @@ public class MainPageFragment extends Fragment implements SensorEventListener {
             LinearLayout block = parentActivity.findViewById(R.id.main_page_water_block);
             block.setVisibility(View.GONE);
         }
-//         mainPageActiveBlockController.setContentDescription("minus");
-//        mainPageWalkBlockController.setContentDescription("minus");
-//        mainPageExerciseBlockController.setContentDescription("minus");
-//        mainPageFoodBlockController.setContentDescription("minus");
-//        mainPageSleepBlockController.setContentDescription("minus");
-//        mainPageBodyCompositionBlockController.setContentDescription("minus");
-//        mainPageWaterBlockController.setContentDescription("minus");
     }
 
 }

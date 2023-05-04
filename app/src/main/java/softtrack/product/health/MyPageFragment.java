@@ -87,7 +87,6 @@ public class MyPageFragment extends Fragment {
                 }
             });
 
-            // здесь
             Cursor foodsCursor = db.rawQuery("Select * from awards where type=\"Велоспорт\" OR type=\"Бег\" OR type=\"Ходьба\" OR type=\"Поход\" OR type=\"Плавание\" OR type=\"Йога\"", null);
             boolean isBigDurationAwardsExists = foodsCursor.getCount() >= 1;
             if (isBigDurationAwardsExists) {
